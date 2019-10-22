@@ -1,0 +1,177 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Thu Oct 10 09:44:17 2019
+# Process ID: 14517
+# Current directory: /home/omochan/3A/cpujikken/core
+# Command line: vivado
+# Log file: /home/omochan/3A/cpujikken/core/vivado.log
+# Journal file: /home/omochan/3A/cpujikken/core/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project project_1 /home/omochan/3A/cpujikken/core/project_1 -part xcku040-ffva1156-2-e
+set_property board_part xilinx.com:kcu105:part0:1.5 [current_project]
+file mkdir /home/omochan/3A/cpujikken/core/project_1/project_1.srcs/constrs_1
+file mkdir /home/omochan/3A/cpujikken/core/project_1/project_1.srcs/constrs_1/new
+close [ open /home/omochan/3A/cpujikken/core/project_1/project_1.srcs/constrs_1/new/interface.xdc w ]
+add_files -fileset constrs_1 /home/omochan/3A/cpujikken/core/project_1/project_1.srcs/constrs_1/new/interface.xdc
+close_project
+open_project /home/omochan/3A/cpujikken/mis/memory/memory.xpr
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+update_module_reference design_1_loadw_wrapper_0_0
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+close_project
+open_project /home/omochan/3A/cpujikken/mis/loopback/project_1.xpr
+open_bd_design {/home/omochan/3A/cpujikken/mis/loopback/project_1.srcs/sources_1/bd/design_1/design_1.bd}
+update_compile_order -fileset sources_1
+close_project
+open_project /home/omochan/3A/cpujikken/mis/memory/memory.xpr
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+open_bd_design {/home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd}
+delete_bd_objs [get_bd_intf_nets default_sysclk_300_1] [get_bd_cells clk_wiz_0]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+apply_board_connection -board_interface "default_sysclk_300" -ip_intf "clk_wiz_0/CLK_IN1_D" -diagram "design_1" 
+endgroup
+delete_bd_objs [get_bd_intf_nets default_sysclk_300_0_1]
+delete_bd_objs [get_bd_cells clk_wiz_0]
+delete_bd_objs [get_bd_intf_ports default_sysclk_300_0]
+delete_bd_objs [get_bd_intf_ports default_sysclk_300]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+apply_board_connection -board_interface "default_sysclk_300" -ip_intf "clk_wiz_0/CLK_IN1_D" -diagram "design_1" 
+endgroup
+connect_bd_net [get_bd_ports reset] [get_bd_pins clk_wiz_0/reset]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+connect_bd_net [get_bd_pins clk_wiz_0/locked] [get_bd_pins proc_sys_reset_0/dcm_locked]
+set_property location {2 71 54} [get_bd_cells clk_wiz_0]
+save_bd_design
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+delete_bd_objs [get_bd_nets loadw_wrapper_0_wea] [get_bd_nets loadw_wrapper_0_addra] [get_bd_nets loadw_wrapper_0_dina] [get_bd_nets blk_mem_gen_0_douta] [get_bd_nets loadw_wrapper_0_ena] [get_bd_cells blk_mem_gen_0]
+save_bd_design
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+open_project /home/omochan/3A/cpujikken/core/project_1/project_1.xpr
+close_project
+open_project /home/omochan/3A/cpujikken/mis/loopback/project_1.xpr
+update_compile_order -fileset sources_1
+close_project
+open_bd_design {/home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd}
+export_ip_user_files -of_objects  [get_files /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v] -no_script -reset -force -quiet
+remove_files  /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
+make_wrapper -files [get_files /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd] -top
+add_files -norecurse /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top design_1_wrapper [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+update_module_reference design_1_loadw_wrapper_0_0
+reset_run synth_1
+reset_run design_1_synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+close_project
+open_project /home/omochan/3A/cpujikken/mis/loopback/project_1.xpr
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
+close_project
+open_project /home/omochan/3A/cpujikken/mis/memory/memory.xpr
+update_compile_order -fileset sources_1
+generate_target all [get_files  /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd]
+export_ip_user_files -of_objects [get_files /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+reset_run design_1_synth_1
+launch_runs -jobs 6 design_1_synth_1
+export_simulation -of_objects [get_files /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/omochan/3A/cpujikken/mis/memory/memory.ip_user_files/sim_scripts -ip_user_files_dir /home/omochan/3A/cpujikken/mis/memory/memory.ip_user_files -ipstatic_source_dir /home/omochan/3A/cpujikken/mis/memory/memory.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/modelsim} {questa=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/questa} {ies=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/ies} {xcelium=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/xcelium} {vcs=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/vcs} {riviera=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+delete_ip_run [get_files -of_objects [get_fileset design_1] /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd]
+set_property synth_checkpoint_mode None [get_files  /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd]
+generate_target all [get_files  /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd]
+export_ip_user_files -of_objects [get_files /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files /home/omochan/3A/cpujikken/mis/memory/memory.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/omochan/3A/cpujikken/mis/memory/memory.ip_user_files/sim_scripts -ip_user_files_dir /home/omochan/3A/cpujikken/mis/memory/memory.ip_user_files -ipstatic_source_dir /home/omochan/3A/cpujikken/mis/memory/memory.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/modelsim} {questa=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/questa} {ies=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/ies} {xcelium=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/xcelium} {vcs=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/vcs} {riviera=/home/omochan/3A/cpujikken/mis/memory/memory.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+close_project
+create_project memory2 /home/omochan/3A/cpujikken/mis/memory2 -part xcku040-ffva1156-2-e
+set_property board_part xilinx.com:kcu105:part0:1.5 [current_project]
+add_files -norecurse -scan_for_includes {/home/omochan/3A/cpujikken/mis/memory/loadw.sv /home/omochan/3A/cpujikken/mis/memory/loadw_wrapper.v}
+add_files -fileset constrs_1 -norecurse /home/omochan/3A/cpujikken/mis/loopback/project_1.srcs/constrs_1/new/interface.xdc
+update_compile_order -fileset sources_1
+create_bd_design "design_1"
+update_compile_order -fileset sources_1
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0
+apply_board_connection -board_interface "default_sysclk_300" -ip_intf "clk_wiz_0/CLK_IN1_D" -diagram "design_1" 
+endgroup
+apply_board_connection -board_interface "reset" -ip_intf "/clk_wiz_0/reset" -diagram "design_1" 
+delete_bd_objs [get_bd_nets reset_1] [get_bd_ports reset]
+startgroup
+create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0
+endgroup
+apply_board_connection -board_interface "reset" -ip_intf "/proc_sys_reset_0/ext_reset" -diagram "design_1" 
+connect_bd_net [get_bd_ports reset] [get_bd_pins clk_wiz_0/reset]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+set_property location {1 271 79} [get_bd_cells clk_wiz_0]
+make_wrapper -files [get_files /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/bd/design_1/design_1.bd] -top
+add_files -norecurse /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top design_1_wrapper [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name blk_mem_gen_0
+set_property -dict [list CONFIG.Write_Depth_A {2048}] [get_ips blk_mem_gen_0]
+generate_target {instantiation_template} [get_files /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci]
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci] -no_script -reset -force -quiet
+remove_files  /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name BRAM
+set_property -dict [list CONFIG.Component_Name {BRAM} CONFIG.Write_Depth_A {2048}] [get_ips BRAM]
+generate_target {instantiation_template} [get_files /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/BRAM/BRAM.xci]
+set_property generate_synth_checkpoint false [get_files  /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/BRAM/BRAM.xci]
+generate_target all [get_files  /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/BRAM/BRAM.xci]
+export_ip_user_files -of_objects [get_files /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/BRAM/BRAM.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files /home/omochan/3A/cpujikken/mis/memory2/memory2.srcs/sources_1/ip/BRAM/BRAM.xci] -directory /home/omochan/3A/cpujikken/mis/memory2/memory2.ip_user_files/sim_scripts -ip_user_files_dir /home/omochan/3A/cpujikken/mis/memory2/memory2.ip_user_files -ipstatic_source_dir /home/omochan/3A/cpujikken/mis/memory2/memory2.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/omochan/3A/cpujikken/mis/memory2/memory2.cache/compile_simlib/modelsim} {questa=/home/omochan/3A/cpujikken/mis/memory2/memory2.cache/compile_simlib/questa} {ies=/home/omochan/3A/cpujikken/mis/memory2/memory2.cache/compile_simlib/ies} {xcelium=/home/omochan/3A/cpujikken/mis/memory2/memory2.cache/compile_simlib/xcelium} {vcs=/home/omochan/3A/cpujikken/mis/memory2/memory2.cache/compile_simlib/vcs} {riviera=/home/omochan/3A/cpujikken/mis/memory2/memory2.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+update_compile_order -fileset sources_1
+create_bd_cell -type module -reference loadw_wrapper loadw_wrapper_0
+set_property location {1 108 119} [get_bd_cells clk_wiz_0]
+connect_bd_net [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins loadw_wrapper_0/clk]
+connect_bd_net [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins loadw_wrapper_0/rstn]
+save_bd_design
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+reset_run synth_1
