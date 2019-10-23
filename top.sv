@@ -90,16 +90,18 @@ module top(
    assign signed_immd = {{16{inst[15]}}, inst[15:0]};
    assign pc_sub = pc[1:0];
    assign led = pc[7:0] | (mode << 4);
+   assign dina = gpr[inst[20:16]];
+   assign wea = (mode == EXEC && inst[31:26] == OP_SW);
 
    always @(posedge clk) begin
     if (~rstn) begin
 		 data <= 8'b0;
 		 data_valid <= 0;
 		 tx_start <= 0;
-		 dina <= 0;
 		 pc <= 0;
 		 latancy <= 0;
-		 wea <= 0;
+		 // dina <= 0;
+		 // wea <= 0;
 		 mode <= STALL;
 	end 
 	else begin
@@ -213,16 +215,17 @@ module top(
 				end
 
 				OP_SW: begin
-					if (latancy == 1) begin
-						wea <= 0;
-						latancy <= 0;
-						pc <= pc + 4;
-					end
-					else begin
-						dina <= gpr[inst[20:16]];
-						wea <= 1;
-						latancy <= latancy + 1;
-					end
+					// if (latancy == 1) begin
+					// 	wea <= 0;
+					// 	latancy <= 0;
+					// 	pc <= pc + 4;
+					// end
+					// else begin
+					// 	dina <= gpr[inst[20:16]];
+					// 	wea <= 1;
+					// 	latancy <= latancy + 1;
+					// end
+					pc <= pc + 4;
 				end
 				OP_LW: begin
 					if (latancy == 1) begin
