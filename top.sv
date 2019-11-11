@@ -46,6 +46,15 @@ module top(
 
 
 	localparam FPU_ADD = 6'b000000;
+	localparam FPU_SUB = 6'b000001; //check!!!!!!!
+	localparam FPU_MUL = 6'b000010;
+	localparam FPU_INV = 6'b000011;
+	localparam FPU_ABS = 6'b000101;
+	localparam FPU_NEG = 6'b000111;
+	localparam FPU_SQRT = 6'b000100;
+	localparam FPU_EQ = 6'b110010;
+	localparam FPU_LT = 6'b110100;
+	localparam FPU_LE = 6'b110110;
 	localparam FPU_FTOI = 6'b001000;
 	localparam FPU_ITOF = 6'b001001;
 
@@ -73,8 +82,6 @@ module top(
 	logic [31:0] immd;
 	logic [31:0] signed_immd;
 
-	logic fpu_ovf;
-	logic [31:0] fpu_output;
 	
 
 
@@ -108,13 +115,36 @@ module top(
    assign dina = gpr[inst[20:16]];
    assign wea = (mode == EXEC && inst[31:26] == OP_SW);
 
-   reg [31:0][31:0] fpr = {32'b1110100, {29{32'bx}}, 32'b11111111111111100, 32'b0};
+   reg [31:0][31:0] fpr = {32'b1110100, {29{32'bx}}, 32'b10010, 32'b0};
 
-	fadd faddo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_output, fpu_ovf);
+	logic [31:0] fpu_add_out;
+	logic fpu_add_ovf;
+	logic [31:0] fpu_sub_out;
+	logic fpu_sub_ovf;
+	logic [31:0] fpu_mul_out;
+	logic fpu_mul_ovf;
+	logic [31:0] fpu_inv_out;
+	// logic [31:0] fpu_abs_out;
+	// logic [31:0] fpu_neg_out;
+	// logic [31:0] fpu_sqrt_out;
+	logic [31:0] fpu_eq_out;
+	logic [31:0] fpu_lt_out;
+	logic [31:0] fpu_le_out;
+	// logic [31:0] fpu_ftoi_out;
+	// logic [31:0] fpu_itof_out;
 
-	// ftoi ftoio (fpr[inst[15:11]], fpu_output);
-	//
-	// itof itofo (gpr[inst[15:11]], fpu_output);
+	fadd faddo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_add_out, fpu_add_ovf);
+	fsub fsubo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_sub_out, fpu_sub_ovf);
+	fmul fmulo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_mul_out, fpu_mul_ovf);
+	finv finvo (fpr[inst[15:11]], fpu_inv_out);
+	// fabs fabso (fpr[inst[15:11]], fpu_abs_out);
+	// fneg fnego (fpr[inst[15:11]], fpu_neg_out);
+	// fsqrt fsqrto (fpr[inst[15:11]], fpu_sqrt_out);
+	feq feqo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_eq_out);
+	flt flto (fpr[inst[20:16]], fpr[inst[15:11]], fpu_lt_out);
+	fle fleo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_le_out);
+	// ftoi ftoio (fpr[inst[15:11]], fpu_ftoi_out);
+	// itof itofo (gpr[inst[15:11]], fpu_itof_out);
 
 
    always @(posedge clk) begin
@@ -208,21 +238,66 @@ module top(
 						FPU_ADD : begin
 							if(latancy == 2) begin
 								latancy <= 0;
-								fpr[inst[10:6]] <= fpu_output;
+								fpr[inst[10:6]] <= fpu_add_out;
 								pc <= pc + 4;
 							end
 							else latancy <= latancy + 1;
 						end
+						FPU_SUB : begin
+							if(latancy == 2) begin
+								latancy <= 0;
+								fpr[inst[10:6]] <= fpu_sub_out;
+								pc <= pc + 4;
+							end
+							else latancy <= latancy + 1;
+						end
+						FPU_MUL : begin
+							if(latancy == 2) begin
+								latancy <= 0;
+								fpr[inst[10:6]] <= fpu_mul_out;
+								pc <= pc + 4;
+							end
+							else latancy <= latancy + 1;
+						end
+						FPU_INV : begin
+							fpr[inst[10:6]] <= fpu_inv_out;
+							pc <= pc + 4;
+						end
+						// FPU_ABS : begin
+						// 	fpr[inst[10:6]] <= fpu_abs_out;
+						// 	pc <= pc + 4;
+						// end
+						// FPU_NEG : begin
+						// 	fpr[inst[10:6]] <= fpu_neg_out;
+						// 	pc <= pc + 4;
+						// end
 
-						FPU_FTOI : begin
-							gpr[inst[10:6]] <= fpu_output;
+						// FPU_SQRT : begin
+						// 	fpr[inst[10:6]] <= fpu_sqrt_out;
+						// 	pc <= pc + 4;
+						// end
+						FPU_EQ : begin
+							gpr[inst[10:6]] <= fpu_eq_out;
+							pc <= pc + 4;
+						end
+						FPU_LT : begin
+							gpr[inst[10:6]] <= fpu_lt_out;
+							pc <= pc + 4;
+						end
+						FPU_LE : begin
+							gpr[inst[10:6]] <= fpu_le_out;
 							pc <= pc + 4;
 						end
 
-						FPU_ITOF : begin
-							fpr[inst[10:6]] <= fpu_output;
-							pc <= pc + 4;
-						end
+						// FPU_FTOI : begin
+						// 	gpr[inst[10:6]] <= fpu_ftoi_out;
+						// 	pc <= pc + 4;
+						// end
+						//
+						// FPU_ITOF : begin
+						// 	fpr[inst[10:6]] <= fpu_itof_out;
+						// 	pc <= pc + 4;
+						// end
 
 					endcase
 				end
