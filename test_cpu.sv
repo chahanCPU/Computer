@@ -4,7 +4,7 @@
 // HALF_TMCLK corresponds to 100 MHz system clock
 // TMBIT and CLK_PER_HALF_BIT corresponds to 9600 bps
 
-module test_uart
+module test_cpu
   #( parameter TMBIT = 8680,
      parameter TMINTVL = TMBIT*5,
      parameter HALF_TMCLK = 5,
@@ -48,7 +48,7 @@ module test_uart
    top u1(pin_send,pin_recv,clk,rstn);
 
    initial begin
-	   fd=$fopen("/home/omochan/3A/cpujikken/core/code/code_fib.txt","r");
+	   fd=$fopen("/home/omochan/3A/cpujikken/core/code/code_fpu.txt","r");
       $dumpfile("test_uart.vcd");
       $dumpvars(0);
 

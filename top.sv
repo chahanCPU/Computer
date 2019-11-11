@@ -13,6 +13,7 @@ module top(
 	localparam BRAM_SIZE = 15;
 
 	localparam OP_SPECIAL = 6'b000000;
+	localparam OP_FPU = 6'b010001;
 	localparam OP_LW = 6'b100011;
 	localparam OP_SW = 6'b101011;
 	localparam OP_ADDI = 6'b001000;
@@ -21,6 +22,8 @@ module top(
 	localparam OP_XORI = 6'b001110;
 	localparam OP_SLTI = 6'b001010;
 	localparam OP_BEQ = 6'b000100;
+	localparam OP_BGTZ = 6'b000111;
+	localparam OP_BLEZ = 6'b000110;
 	localparam OP_BNE = 6'b000101;
 	localparam OP_J = 6'b000010;
 	localparam OP_JAL = 6'b000011;
@@ -29,6 +32,8 @@ module top(
 
 	localparam FUNC_ADD = 6'b100000;
 	localparam FUNC_SUB = 6'b100010;
+	localparam FUNC_MULT = 6'b011000;
+	localparam FUNC_DIV = 6'b011001;
 	localparam FUNC_AND = 6'b100100;
 	localparam FUNC_OR  = 6'b100101;
 	localparam FUNC_XOR  = 6'b100110;
@@ -39,6 +44,10 @@ module top(
 	localparam FUNC_SRLV = 6'b000110;
 	localparam FUNC_JR = 6'b001000;
 
+
+	localparam FPU_ADD = 6'b000000;
+	localparam FPU_FTOI = 6'b001000;
+	localparam FPU_ITOF = 6'b001001;
 
 	localparam STALL = 0;
 	localparam LOAD = 1;
@@ -63,6 +72,9 @@ module top(
 	logic [31:0] inst;
 	logic [31:0] immd;
 	logic [31:0] signed_immd;
+
+	logic fpu_ovf;
+	logic [31:0] fpu_output;
 	
 
 
@@ -72,6 +84,8 @@ module top(
 		.wea (wea),
 		.clka (clk),
 		.douta (douta));
+
+	
 
    uart_rx #(CLK_PER_HALF_BIT) u2(rdata, rx_ready, ferr, rxd, clk, rstn);
    uart_tx #(CLK_PER_HALF_BIT) u1(data, tx_start, tx_busy, txd, clk, rstn);
@@ -83,6 +97,7 @@ module top(
 
    logic [1:0] latancy;
 
+
    assign addra32 = (gpr[inst[25:21]] + {{16{inst[15]}}, inst[15:0]}) >> 2;
    assign addra = addra32[BRAM_SIZE - 1:0];
    assign inst = inst_mem[pc >> 2];
@@ -92,6 +107,15 @@ module top(
    assign led = pc[7:0] | (mode << 4);
    assign dina = gpr[inst[20:16]];
    assign wea = (mode == EXEC && inst[31:26] == OP_SW);
+
+   reg [31:0][31:0] fpr = {32'b1110100, {29{32'bx}}, 32'b11111111111111100, 32'b0};
+
+	fadd faddo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_output, fpu_ovf);
+
+	// ftoi ftoio (fpr[inst[15:11]], fpu_output);
+	//
+	// itof itofo (gpr[inst[15:11]], fpu_output);
+
 
    always @(posedge clk) begin
     if (~rstn) begin
@@ -133,6 +157,14 @@ module top(
 							gpr[inst[15:11]] <= gpr[inst[25:21]] - gpr[inst[20:16]];
 							pc <= pc + 4;
 						end
+						FUNC_MULT : begin
+							gpr[inst[15:11]] <= gpr[inst[25:21]] * gpr[inst[20:16]];
+							pc <= pc + 4;
+						end
+						FUNC_DIV : begin
+							gpr[inst[15:11]] <= gpr[inst[25:21]] / gpr[inst[20:16]];
+							pc <= pc + 4;
+						end
 						FUNC_AND : begin
 							gpr[inst[15:11]] <= gpr[inst[25:21]] & gpr[inst[20:16]];
 							pc <= pc + 4;
@@ -170,6 +202,31 @@ module top(
 						end
 					endcase
 				end
+
+				OP_FPU: begin
+					case (inst[5:0])
+						FPU_ADD : begin
+							if(latancy == 2) begin
+								latancy <= 0;
+								fpr[inst[10:6]] <= fpu_output;
+								pc <= pc + 4;
+							end
+							else latancy <= latancy + 1;
+						end
+
+						FPU_FTOI : begin
+							gpr[inst[10:6]] <= fpu_output;
+							pc <= pc + 4;
+						end
+
+						FPU_ITOF : begin
+							fpr[inst[10:6]] <= fpu_output;
+							pc <= pc + 4;
+						end
+
+					endcase
+				end
+
 				OP_ADDI: begin
 					gpr[inst[20:16]] <= gpr[inst[25:21]] + signed_immd;
 					pc <= pc + 4;
@@ -192,7 +249,23 @@ module top(
 				end
 				OP_BEQ: begin
 					if(gpr[inst[25:21]] == gpr[inst[20:16]]) begin
-						pc <= pc + {14'b0, inst[15:0], 2'b0};
+						pc <= (pc & 32'hf0000000) | {14'b0, inst[15:0], 2'b0};
+					end
+					else begin
+						pc <= pc + 4;
+					end
+				end
+				OP_BGTZ: begin
+					if(gpr[inst[25:21]] > 0) begin
+						pc <= (pc & 32'hf0000000) | {14'b0, inst[15:0], 2'b0};
+					end
+					else begin
+						pc <= pc + 4;
+					end
+				end
+				OP_BLEZ: begin
+					if(gpr[inst[25:21]] <= 0) begin
+						pc <= (pc & 32'hf0000000) | {14'b0, inst[15:0], 2'b0};
 					end
 					else begin
 						pc <= pc + 4;
@@ -200,7 +273,7 @@ module top(
 				end
 				OP_BNE: begin
 					if(gpr[inst[25:21]] != gpr[inst[20:16]]) begin
-						pc <= pc + {14'b0, inst[15:0], 2'b0};
+						pc <= (pc & 32'hf0000000) | {14'b0, inst[15:0], 2'b0};
 					end
 					else begin
 						pc <= pc + 4;
