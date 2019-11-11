@@ -48,7 +48,7 @@ module test_cpu
    top u1(pin_send,pin_recv,clk,rstn);
 
    initial begin
-	   fd=$fopen("/home/omochan/3A/cpujikken/core/code/code_fpu.txt","r");
+	   fd=$fopen("/home/omochan/3A/cpujikken/core/binarycode/code_fib_asm.txt","r");
       $dumpfile("test_uart.vcd");
       $dumpvars(0);
 

@@ -100,7 +100,7 @@ module top(
    logic [7:0] mode;
    logic [INST_SIZE - 1 : 0] pc;
    logic [1:0] pc_sub;
-   reg [31:0][31:0] gpr = {32'b1110100, {29{32'bx}}, 32'b11111111111111100, 32'b0};
+   reg [31:0][31:0] gpr = {32'b1110100, 32'b100000000000, 32'b100000000000, {27{32'bx}}, 32'b11111111111111100, 32'b0};
 
    logic [1:0] latancy;
 
@@ -133,16 +133,16 @@ module top(
 	// logic [31:0] fpu_ftoi_out;
 	// logic [31:0] fpu_itof_out;
 
-	fadd faddo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_add_out, fpu_add_ovf);
-	fsub fsubo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_sub_out, fpu_sub_ovf);
-	fmul fmulo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_mul_out, fpu_mul_ovf);
-	finv finvo (fpr[inst[15:11]], fpu_inv_out);
+	// fadd faddo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_add_out, fpu_add_ovf);
+	// fsub fsubo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_sub_out, fpu_sub_ovf);
+	// fmul fmulo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_mul_out, fpu_mul_ovf);
+	// finv finvo (fpr[inst[15:11]], fpu_inv_out);
 	// fabs fabso (fpr[inst[15:11]], fpu_abs_out);
 	// fneg fnego (fpr[inst[15:11]], fpu_neg_out);
 	// fsqrt fsqrto (fpr[inst[15:11]], fpu_sqrt_out);
-	feq feqo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_eq_out);
-	flt flto (fpr[inst[20:16]], fpr[inst[15:11]], fpu_lt_out);
-	fle fleo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_le_out);
+	// feq feqo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_eq_out);
+	// flt flto (fpr[inst[20:16]], fpr[inst[15:11]], fpu_lt_out);
+	// fle fleo (fpr[inst[20:16]], fpr[inst[15:11]], fpu_le_out);
 	// ftoi ftoio (fpr[inst[15:11]], fpu_ftoi_out);
 	// itof itofo (gpr[inst[15:11]], fpu_itof_out);
 
@@ -233,74 +233,74 @@ module top(
 					endcase
 				end
 
-				OP_FPU: begin
-					case (inst[5:0])
-						FPU_ADD : begin
-							if(latancy == 2) begin
-								latancy <= 0;
-								fpr[inst[10:6]] <= fpu_add_out;
-								pc <= pc + 4;
-							end
-							else latancy <= latancy + 1;
-						end
-						FPU_SUB : begin
-							if(latancy == 2) begin
-								latancy <= 0;
-								fpr[inst[10:6]] <= fpu_sub_out;
-								pc <= pc + 4;
-							end
-							else latancy <= latancy + 1;
-						end
-						FPU_MUL : begin
-							if(latancy == 2) begin
-								latancy <= 0;
-								fpr[inst[10:6]] <= fpu_mul_out;
-								pc <= pc + 4;
-							end
-							else latancy <= latancy + 1;
-						end
-						FPU_INV : begin
-							fpr[inst[10:6]] <= fpu_inv_out;
-							pc <= pc + 4;
-						end
-						// FPU_ABS : begin
-						// 	fpr[inst[10:6]] <= fpu_abs_out;
-						// 	pc <= pc + 4;
-						// end
-						// FPU_NEG : begin
-						// 	fpr[inst[10:6]] <= fpu_neg_out;
-						// 	pc <= pc + 4;
-						// end
-
-						// FPU_SQRT : begin
-						// 	fpr[inst[10:6]] <= fpu_sqrt_out;
-						// 	pc <= pc + 4;
-						// end
-						FPU_EQ : begin
-							gpr[inst[10:6]] <= fpu_eq_out;
-							pc <= pc + 4;
-						end
-						FPU_LT : begin
-							gpr[inst[10:6]] <= fpu_lt_out;
-							pc <= pc + 4;
-						end
-						FPU_LE : begin
-							gpr[inst[10:6]] <= fpu_le_out;
-							pc <= pc + 4;
-						end
-
-						// FPU_FTOI : begin
-						// 	gpr[inst[10:6]] <= fpu_ftoi_out;
-						// 	pc <= pc + 4;
-						// end
-						//
-						// FPU_ITOF : begin
-						// 	fpr[inst[10:6]] <= fpu_itof_out;
-						// 	pc <= pc + 4;
-						// end
-
-					endcase
-				end
+				// OP_FPU: begin
+				// 	case (inst[5:0])
+				// 		FPU_ADD : begin
+				// 			if(latancy == 2) begin
+				// 				latancy <= 0;
+				// 				fpr[inst[10:6]] <= fpu_add_out;
+				// 				pc <= pc + 4;
+				// 			end
+				// 			else latancy <= latancy + 1;
+				// 		end
+				// 		FPU_SUB : begin
+				// 			if(latancy == 2) begin
+				// 				latancy <= 0;
+				// 				fpr[inst[10:6]] <= fpu_sub_out;
+				// 				pc <= pc + 4;
+				// 			end
+				// 			else latancy <= latancy + 1;
+				// 		end
+				// 		FPU_MUL : begin
+				// 			if(latancy == 2) begin
+				// 				latancy <= 0;
+				// 				fpr[inst[10:6]] <= fpu_mul_out;
+				// 				pc <= pc + 4;
+				// 			end
+				// 			else latancy <= latancy + 1;
+				// 		end
+				// 		FPU_INV : begin
+				// 			fpr[inst[10:6]] <= fpu_inv_out;
+				// 			pc <= pc + 4;
+				// 		end
+				// 		// FPU_ABS : begin
+				// 		// 	fpr[inst[10:6]] <= fpu_abs_out;
+				// 		// 	pc <= pc + 4;
+				// 		// end
+				// 		// FPU_NEG : begin
+				// 		// 	fpr[inst[10:6]] <= fpu_neg_out;
+				// 		// 	pc <= pc + 4;
+				// 		// end
+				//
+				// 		// FPU_SQRT : begin
+				// 		// 	fpr[inst[10:6]] <= fpu_sqrt_out;
+				// 		// 	pc <= pc + 4;
+				// 		// end
+				// 		FPU_EQ : begin
+				// 			gpr[inst[10:6]] <= fpu_eq_out;
+				// 			pc <= pc + 4;
+				// 		end
+				// 		FPU_LT : begin
+				// 			gpr[inst[10:6]] <= fpu_lt_out;
+				// 			pc <= pc + 4;
+				// 		end
+				// 		FPU_LE : begin
+				// 			gpr[inst[10:6]] <= fpu_le_out;
+				// 			pc <= pc + 4;
+				// 		end
+				//
+				// 		// FPU_FTOI : begin
+				// 		// 	gpr[inst[10:6]] <= fpu_ftoi_out;
+				// 		// 	pc <= pc + 4;
+				// 		// end
+				// 		//
+				// 		// FPU_ITOF : begin
+				// 		// 	fpr[inst[10:6]] <= fpu_itof_out;
+				// 		// 	pc <= pc + 4;
+				// 		// end
+				//
+				// 	endcase
+				// end
 
 				OP_ADDI: begin
 					gpr[inst[20:16]] <= gpr[inst[25:21]] + signed_immd;
