@@ -1,14 +1,15 @@
 `timescale 1ns / 1ps
+
 `default_nettype none
 
 // HALF_TMCLK corresponds to 100 MHz system clock
 // TMBIT and CLK_PER_HALF_BIT corresponds to 9600 bps
 
 module test_cpu
-  #( parameter TMBIT = 8680,
+  #( parameter TMBIT = 400,
      parameter TMINTVL = TMBIT*5,
      parameter HALF_TMCLK = 5,
-     parameter CLK_PER_HALF_BIT = 434)
+     parameter CLK_PER_HALF_BIT = 20)
    ();
 
    logic pin_send; // data to uart rx port
@@ -45,10 +46,10 @@ module test_cpu
       end
    endtask
 
-   top u1(pin_send,pin_recv,clk,rstn);
+   top #(CLK_PER_HALF_BIT) u1(pin_send,pin_recv,clk,rstn);
 
    initial begin
-	   fd=$fopen("/home/omochan/3A/cpujikken/core/binarycode/code_fib_asm.txt","r");
+	   fd=$fopen("/home/omochan/3A/cpujikken/core/binarycode/mandel_small.txt","r");
       $dumpfile("test_uart.vcd");
       $dumpvars(0);
 
