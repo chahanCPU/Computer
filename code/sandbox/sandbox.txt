@@ -1,0 +1,83 @@
+<****** Parser ******>
+App
+	Var print_int
+	Neg
+		Int 100
+
+
+<****** Typing ******>
+App
+	Var print_int
+	Neg
+		Int 100
+
+
+<****** KNormal ******>
+Let
+	Ti2 : int
+	Let
+		Ti1 : int
+		Int 100
+		Neg Ti1
+	ExtFunApp print_int Ti2 
+
+
+<****** Alpha ******>
+Let
+	Ti2.3 : int
+	Let
+		Ti1.4 : int
+		Int 100
+		Neg Ti1.4
+	ExtFunApp print_int Ti2.3 
+
+
+<****** iter ******>
+Let
+	Ti2.3 : int
+	Int -100
+	ExtFunApp print_int Ti2.3 
+
+
+<****** Closure ******>
+Prog
+	Let
+		Ti2.3 : int
+		Int -100
+		AppDir Lmin_caml_print_int Ti2.3 
+
+
+<****** Virtual ******>
+Prog
+	Let
+		Ti2.3 : int
+		Set -100
+		Ans
+			CallDir
+				Lmin_caml_print_int
+				Ti2.3 
+				
+
+
+<****** Simm ******>
+Prog
+	Let
+		Ti2.3 : int
+		Set -100
+		Ans
+			CallDir
+				Lmin_caml_print_int
+				Ti2.3 
+				
+
+
+<****** RegAlloc ******>
+Prog
+	Let
+		$2 : int
+		Set -100
+		Ans
+			CallDir
+				Lmin_caml_print_int
+				$2 
+				

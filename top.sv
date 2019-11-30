@@ -1,3 +1,5 @@
+//todo 
+//fix bgtz and etc. add $signed
 `timescale 1ns / 1ps
 
 module top #( parameter CLK_PER_HALF_BIT = 434)
@@ -10,10 +12,11 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 
 	// localparam CLK_PER_HALF_BIT = 434;
 	localparam INST_SIZE = 10;
-	localparam BRAM_SIZE = 7;
+	localparam BRAM_SIZE = 18;
 
 	localparam OP_SPECIAL = 6'b000000;
 	localparam OP_FPU = 6'b010001;
+
 	localparam OP_LW = 6'b100011;
 	localparam OP_SW = 6'b101011;
 	localparam OP_ADDI = 6'b001000;
@@ -21,6 +24,7 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	localparam OP_ORI = 6'b001101;
 	localparam OP_XORI = 6'b001110;
 	localparam OP_SLTI = 6'b001010;
+	localparam OP_LUI = 6'b001111;
 	localparam OP_BEQ = 6'b000100;
 	localparam OP_BGTZ = 6'b000111;
 	localparam OP_BLEZ = 6'b000110;
@@ -28,6 +32,7 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	localparam OP_J = 6'b000010;
 	localparam OP_JAL = 6'b000011;
 	localparam OP_OUT = 6'b111111;
+
 	localparam OP_LUI_S = 6'b011111;
 	localparam OP_LW_S = 6'b110001;
 	localparam OP_SW_S = 6'b111001;
@@ -40,16 +45,18 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	localparam FUNC_AND = 6'b100100;
 	localparam FUNC_OR  = 6'b100101;
 	localparam FUNC_XOR  = 6'b100110;
-	localparam FUNC_SLT  = 6'b100110;
+	localparam FUNC_SLT  = 6'b101010;
 	localparam FUNC_SLL  = 6'b000000; //change!!!!
 	localparam FUNC_SLLV = 6'b000100;
 	localparam FUNC_SRL  = 6'b000010;
 	localparam FUNC_SRLV = 6'b000110;
 	localparam FUNC_JR = 6'b001000;
+	//localparam FUNC_NOOP = 6'b111110;
+	//localparam FUNC_EOF  = 6'b111111;
 
 
 	localparam FPU_ADD = 6'b000000;
-	localparam FPU_SUB = 6'b000001; //check!!!!!!!
+	localparam FPU_SUB = 6'b000001;
 	localparam FPU_MUL = 6'b000010;
 	localparam FPU_INV = 6'b000011;
 	localparam FPU_ABS = 6'b000101;
@@ -73,7 +80,6 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
    wire 			 tx_busy;
    wire 			 ferr;
 
-   reg [31:0] inst_mem[(2 ** INST_SIZE - 1) : 0];
 
 	logic [31:0] addra32;
 	logic [BRAM_SIZE - 1 : 0] addra;
@@ -102,23 +108,25 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 
    logic [7:0] mode;
    logic [INST_SIZE - 1 : 0] pc;
-   logic [1:0] pc_sub;
    reg [31:0][31:0] gpr = {32'b1110100, 32'b0, 32'b0, {27{32'bx}}, 32'b11111111111111100, 32'b0};
    reg [31:0][31:0] fpr = {32{32'b0}};
 
    logic [1:0] latancy;
 
 
-   assign addra32 = (gpr[inst[25:21]] + {{16{inst[15]}}, inst[15:0]}) >> 2;
-   assign addra = addra32[BRAM_SIZE - 1:0];
-   assign inst = inst_mem[pc >> 2];
    assign immd = {16'b0, inst[15:0]};
    assign signed_immd = {{16{inst[15]}}, inst[15:0]};
-   assign pc_sub = pc[1:0];
+
+   assign addra32 = (gpr[inst[25:21]] + signed_immd) >> 2;
+
+   assign addra = addra32[BRAM_SIZE - 1:0];
    assign led = pc[7:0] | (mode << 4);
    assign dina = (inst[31:26] == OP_SW_S ? fpr[inst[20:16]] : gpr[inst[20:16]]);
    assign wea = (mode == EXEC && (inst[31:26] == OP_SW || inst[31:26] == OP_SW_S));
 
+
+   logic load_done;
+   fetch #(CLK_PER_HALF_BIT, INST_SIZE) _fetch(rxd, clk, mode, pc, rstn, inst, load_done);
 
 	logic [31:0] fpu_add_out;
 	logic fpu_add_ovf;
@@ -136,10 +144,10 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	logic [31:0] fpu_ftoi_out;
 	logic [31:0] fpu_itof_out;
 
-	fadd faddo (fpr[inst[15:11]], fpr[inst[20:16]], fpu_add_out, fpu_add_ovf);
-	fsub fsubo (fpr[inst[15:11]], fpr[inst[20:16]], fpu_sub_out, fpu_sub_ovf);
+	// fadd faddo (fpr[inst[15:11]], fpr[inst[20:16]], fpu_add_out, fpu_add_ovf);
+	// fsub fsubo (fpr[inst[15:11]], fpr[inst[20:16]], fpu_sub_out, fpu_sub_ovf);
 	fmul fmulo (fpr[inst[15:11]], fpr[inst[20:16]], fpu_mul_out, fpu_mul_ovf);
-	finv finvo (fpr[inst[15:11]], fpu_inv_out);
+	// finv finvo (fpr[inst[15:11]], fpu_inv_out);
 	// fabs fabso (fpr[inst[15:11]], fpu_abs_out);
 	// fneg fnego (fpr[inst[15:11]], fpu_neg_out);
 	fsqrt fsqrto (fpr[inst[15:11]], fpu_sqrt_out);
@@ -168,14 +176,9 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 			end
 		end
 		else if (mode == LOAD) begin
-			 if((pc >> 2)  && inst_mem[(pc >> 2) - 1] == 32'b0) begin
-				 mode <= EXEC;
-				 pc <= 0;
-			 end
-			 if (rx_ready) begin
-				inst_mem[pc >> 2][24 - pc_sub * 8 +: 8] <= rdata;
-				pc <= pc + 1;
-			 end
+			if(load_done) begin
+				mode <= EXEC;
+			end
 		end
 
 		else begin
@@ -211,7 +214,7 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 							pc <= pc + 4;
 						end
 						FUNC_SLT : begin
-							gpr[inst[15:11]] <= gpr[inst[25:21]] < $signed(gpr[inst[20:16]]);
+							gpr[inst[15:11]] <= $signed(gpr[inst[25:21]]) < $signed(gpr[inst[20:16]]);
 							pc <= pc + 4;
 						end
 						FUNC_SLL : begin
@@ -276,8 +279,12 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 						// end
 				
 						FPU_SQRT : begin
-							fpr[inst[10:6]] <= fpu_sqrt_out;
-							pc <= pc + 4;
+							if(latancy == 2) begin
+								latancy <= 0;
+								fpr[inst[10:6]] <= fpu_sqrt_out;
+								pc <= pc + 4;
+							end
+							else latancy <= latancy + 1;
 						end
 						FPU_EQ : begin
 							gpr[inst[10:6]] <= fpu_eq_out;
@@ -310,19 +317,23 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 					pc <= pc + 4;
 				end
 				OP_ANDI: begin
-					gpr[inst[20:16]] <= gpr[inst[25:21]] & immd;
+					gpr[inst[20:16]] <= gpr[inst[25:21]] & signed_immd;
 					pc <= pc + 4;
 				end
 				OP_ORI: begin
-					gpr[inst[20:16]] <= gpr[inst[25:21]] | immd;
+					gpr[inst[20:16]] <= gpr[inst[25:21]] | signed_immd;
 					pc <= pc + 4;
 				end
 				OP_XORI: begin
-					gpr[inst[20:16]] <= gpr[inst[25:21]] ^ immd;
+					gpr[inst[20:16]] <= gpr[inst[25:21]] ^ signed_immd;
 					pc <= pc + 4;
 				end
 				OP_SLTI: begin
 					gpr[inst[20:16]] <= $signed(gpr[inst[25:21]]) < $signed(signed_immd);
+					pc <= pc + 4;
+				end
+				OP_LUI: begin
+					gpr[inst[20:16]] <= {inst[15:0], 16'b0};
 					pc <= pc + 4;
 				end
 				OP_BEQ: begin

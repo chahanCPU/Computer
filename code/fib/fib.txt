@@ -1,0 +1,375 @@
+<****** Parser ******>
+LetRec
+	FunDef
+		fib : (var (some (int -> int)))
+		n : (var (some int))
+		If
+			LE
+				Var n
+				Int 1
+			Int 1
+			Add
+				App
+					Var fib
+					Sub
+						Var n
+						Int 1
+				App
+					Var fib
+					Sub
+						Var n
+						Int 2
+	App
+		Var print_int
+		App
+			Var fib
+			Int 15
+
+
+<****** Typing ******>
+LetRec
+	FunDef
+		fib : (int -> int)
+		n : int
+		If
+			LE
+				Var n
+				Int 1
+			Int 1
+			Add
+				App
+					Var fib
+					Sub
+						Var n
+						Int 1
+				App
+					Var fib
+					Sub
+						Var n
+						Int 2
+	App
+		Var print_int
+		App
+			Var fib
+			Int 15
+
+
+<****** KNormal ******>
+LetRec
+	FunDef
+		fib : (int -> int)
+		n : int
+		Let
+			Ti3 : int
+			Int 1
+			IfLE n Ti3
+				Int 1
+				Let
+					Ti6 : int
+					Let
+						Ti5 : int
+						Let
+							Ti4 : int
+							Int 1
+							Sub n Ti4
+						App fib Ti5 
+					Let
+						Ti9 : int
+						Let
+							Ti8 : int
+							Let
+								Ti7 : int
+								Int 2
+								Sub n Ti7
+							App fib Ti8 
+						Add Ti6 Ti9
+	Let
+		Ti2 : int
+		Let
+			Ti1 : int
+			Int 15
+			App fib Ti1 
+		ExtFunApp print_int Ti2 
+
+
+<****** Alpha ******>
+LetRec
+	FunDef
+		fib.10 : (int -> int)
+		n.11 : int
+		Let
+			Ti3.14 : int
+			Int 1
+			IfLE n.11 Ti3.14
+				Int 1
+				Let
+					Ti6.15 : int
+					Let
+						Ti5.19 : int
+						Let
+							Ti4.20 : int
+							Int 1
+							Sub n.11 Ti4.20
+						App fib.10 Ti5.19 
+					Let
+						Ti9.16 : int
+						Let
+							Ti8.17 : int
+							Let
+								Ti7.18 : int
+								Int 2
+								Sub n.11 Ti7.18
+							App fib.10 Ti8.17 
+						Add Ti6.15 Ti9.16
+	Let
+		Ti2.12 : int
+		Let
+			Ti1.13 : int
+			Int 15
+			App fib.10 Ti1.13 
+		ExtFunApp print_int Ti2.12 
+
+
+<****** iter ******>
+LetRec
+	FunDef
+		fib.10 : (int -> int)
+		n.11 : int
+		Let
+			Ti3.14 : int
+			Int 1
+			IfLE n.11 Ti3.14
+				Int 1
+				Let
+					Ti4.20 : int
+					Int 1
+					Let
+						Ti5.19 : int
+						Sub n.11 Ti4.20
+						Let
+							Ti6.15 : int
+							App fib.10 Ti5.19 
+							Let
+								Ti7.18 : int
+								Int 2
+								Let
+									Ti8.17 : int
+									Sub n.11 Ti7.18
+									Let
+										Ti9.16 : int
+										App fib.10 Ti8.17 
+										Add Ti6.15 Ti9.16
+	Let
+		Ti1.13 : int
+		Int 15
+		Let
+			Ti2.12 : int
+			App fib.10 Ti1.13 
+			ExtFunApp print_int Ti2.12 
+
+
+<****** Closure ******>
+Prog
+	FunDef
+		/* name */
+		Lfib.10 : (int -> int)
+		/* args */
+		n.11 : int
+		/* formal_fv */
+		/* body */
+		Let
+			Ti3.14 : int
+			Int 1
+			IfLE n.11 Ti3.14
+				Int 1
+				Let
+					Ti4.20 : int
+					Int 1
+					Let
+						Ti5.19 : int
+						Sub n.11 Ti4.20
+						Let
+							Ti6.15 : int
+							AppDir Lfib.10 Ti5.19 
+							Let
+								Ti7.18 : int
+								Int 2
+								Let
+									Ti8.17 : int
+									Sub n.11 Ti7.18
+									Let
+										Ti9.16 : int
+										AppDir Lfib.10 Ti8.17 
+										Add Ti6.15 Ti9.16
+	Let
+		Ti1.13 : int
+		Int 15
+		Let
+			Ti2.12 : int
+			AppDir Lfib.10 Ti1.13 
+			AppDir Lmin_caml_print_int Ti2.12 
+
+
+<****** Virtual ******>
+Prog
+	FunDef
+		Lfib.10
+		/* args */
+		n.11
+		/* fargs */
+		Let
+			Ti3.14 : int
+			Set 1
+			Ans
+				IfLE n.11 (V Ti3.14)
+					Ans
+						Set 1
+					Let
+						Ti4.20 : int
+						Set 1
+						Let
+							Ti5.19 : int
+							Sub n.11 (V Ti4.20)
+							Let
+								Ti6.15 : int
+								CallDir
+									Lfib.10
+									Ti5.19 
+									
+								Let
+									Ti7.18 : int
+									Set 2
+									Let
+										Ti8.17 : int
+										Sub n.11 (V Ti7.18)
+										Let
+											Ti9.16 : int
+											CallDir
+												Lfib.10
+												Ti8.17 
+												
+											Ans
+												Add Ti6.15 (V Ti9.16)
+		int
+	Let
+		Ti1.13 : int
+		Set 15
+		Let
+			Ti2.12 : int
+			CallDir
+				Lfib.10
+				Ti1.13 
+				
+			Ans
+				CallDir
+					Lmin_caml_print_int
+					Ti2.12 
+					
+
+
+<****** Simm ******>
+Prog
+	FunDef
+		Lfib.10
+		/* args */
+		n.11
+		/* fargs */
+		Ans
+			IfLE n.11 (C 1)
+				Ans
+					Set 1
+				Let
+					Ti5.19 : int
+					Sub n.11 (C 1)
+					Let
+						Ti6.15 : int
+						CallDir
+							Lfib.10
+							Ti5.19 
+							
+						Let
+							Ti8.17 : int
+							Sub n.11 (C 2)
+							Let
+								Ti9.16 : int
+								CallDir
+									Lfib.10
+									Ti8.17 
+									
+								Ans
+									Add Ti6.15 (V Ti9.16)
+		int
+	Let
+		Ti1.13 : int
+		Set 15
+		Let
+			Ti2.12 : int
+			CallDir
+				Lfib.10
+				Ti1.13 
+				
+			Ans
+				CallDir
+					Lmin_caml_print_int
+					Ti2.12 
+					
+
+
+<****** RegAlloc ******>
+Prog
+	FunDef
+		Lfib.10
+		/* args */
+		$2
+		/* fargs */
+		Ans
+			IfLE $2 (C 1)
+				Ans
+					Set 1
+				Let
+					$3 : int
+					Sub $2 (C 1)
+					Let
+						Tu21 : unit
+						Save $2 n.11
+						Let
+							$2 : int
+							CallDir
+								Lfib.10
+								$3 
+								
+							Let
+								$3 : int
+								Restore n.11
+								Let
+									$3 : int
+									Sub $3 (C 2)
+									Let
+										Tu22 : unit
+										Save $2 Ti6.15
+										Let
+											$2 : int
+											CallDir
+												Lfib.10
+												$3 
+												
+											Let
+												$3 : int
+												Restore Ti6.15
+												Ans
+													Add $3 (V $2)
+		int
+	Let
+		$2 : int
+		Set 15
+		Let
+			$2 : int
+			CallDir
+				Lfib.10
+				$2 
+				
+			Ans
+				CallDir
+					Lmin_caml_print_int
+					$2 
+					

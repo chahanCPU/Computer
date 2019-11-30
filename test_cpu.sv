@@ -6,10 +6,10 @@
 // TMBIT and CLK_PER_HALF_BIT corresponds to 9600 bps
 
 module test_cpu
-  #( parameter TMBIT = 400,
+  #( parameter CLK_PER_HALF_BIT = 30,
+	  parameter TMBIT = CLK_PER_HALF_BIT * 20,
      parameter TMINTVL = TMBIT*5,
-     parameter HALF_TMCLK = 5,
-     parameter CLK_PER_HALF_BIT = 20)
+     parameter HALF_TMCLK = 5)
    ();
 
    logic pin_send; // data to uart rx port
@@ -26,10 +26,20 @@ module test_cpu
    logic       start_bit;
    logic       stop_bit;
 
+   logic [7:0] rxchar;
+   logic [7:0] filechar;
+   logic [7:0] nexchar;
+   logic ferr;
+   logic rx_ready;
+
+
    int 	       i;
    int 	       j;
    int        fd;
+   int        gd;
    int        ok;
+   int       outcount;
+   int       is_eof;
 
    string      send_data = "The";
 
@@ -47,10 +57,12 @@ module test_cpu
    endtask
 
    top #(CLK_PER_HALF_BIT) u1(pin_send,pin_recv,clk,rstn);
+   uart_rx #(CLK_PER_HALF_BIT) rxut(rxchar, rx_ready, ferr, pin_recv, clk, rstn);
 
    initial begin
-	   fd=$fopen("/home/omochan/3A/cpujikken/core/binarycode/mandel_small.txt","r");
-      $dumpfile("test_uart.vcd");
+	   fd=$fopen("/home/omochan/3A/cpujikken/core/code/fib/fib.s.bintext","r");
+	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/fib/fib.s.res","r");
+      $dumpfile("test_cpu.vcd");
       $dumpvars(0);
 
       #1;
@@ -60,6 +72,8 @@ module test_cpu
       pin_send <= 1;
       start_bit <= 0;
       stop_bit <= 0;
+	  outcount <= 1;
+	  is_eof <= 0;
       
       fork
 	 genclk();
@@ -82,7 +96,7 @@ module test_cpu
 			else begin
 				ok = $fscanf(fd, "%b", txchar);
 				if(ok != 1) begin
-					$display("FILE END !!");
+					$display("INPUT FILE END !!");
 					disable FILE_LOOP;
 				end
 				pin_send = 0; // start bit
@@ -102,8 +116,42 @@ module test_cpu
 		 end
 		end
 	end
-	
+
 	$fclose(fd);
+
+	$fscanf(gd, "%c", filechar);
+
+	for(i = 0; i < 1000000000; i++) begin
+	   if (rx_ready) begin
+		    if (is_eof == 0) begin
+				if (filechar != rxchar) begin
+					$display("%d: Not the same!!! ans:%h, real:%h", outcount, filechar, rxchar);
+				end
+				else begin
+					$display("%d: Correct!!! ans:%h, real:%h", outcount, filechar, rxchar);
+				end
+
+				ok = $fscanf(gd, "%c", nexchar);
+
+				if(ok != 1) begin
+					$display("END OF ANSWER!!");
+					is_eof <= 1;
+				end
+				outcount <= outcount + 1;
+				filechar <= nexchar;
+			end 
+			else begin
+				$display("TOO MANY OUTPUT!! real:%h", rxchar);
+			end
+			
+			
+	   end
+	  #HALF_TMCLK;
+	  #HALF_TMCLK;
+	end
+
+   $fclose(gd);
+	
 
 
   //     for (i=0; i<send_data.len(); i++) begin
@@ -124,7 +172,6 @@ module test_cpu
 	 // #TMINTVL;
   //     end // for (i=0; i<send_data.len(); i++)
 	  
-	#1000000000;
 
       $finish;
    end // initial begin
@@ -132,7 +179,7 @@ module test_cpu
    always @(pin_send) begin
       pin_delay <= #TMDELAY pin_send;
    end
-      
+
 endmodule
 
 `default_nettype wire
