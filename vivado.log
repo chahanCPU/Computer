@@ -1574,3 +1574,7 @@ INPUT FILE END !!
           3: Correct!!! ans:37, real:37
 END OF ANSWER!!
 run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:11 . Memory (MB): peak = 11376.035 ; gain = 0.000 ; free physical = 5041 ; free virtual = 10749
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Sat Nov 30 23:40:17 2019...

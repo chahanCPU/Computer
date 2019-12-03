@@ -5,11 +5,10 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	input wire rstn,
 	input wire [1:0] is_sorf,//special or fpu 01=special, 10=fpu
 	input wire instr,
-	input wire [INST_SIZE - 1 : 0] pc,
 	input wire [31:0] s,
 	input wire [31:0] t,
-	output reg [31:0] imm,
-	output reg [4:0] h,
+	input reg [31:0] imm,
+	input reg [4:0] h,
 	output logic [31:0] d);
 
 	localparam OP_LW = 6'b100011;
@@ -135,6 +134,9 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 					FUNC_SRLV : begin
 						d <= t >> h;
 					end
+					FUNC_JR : begin
+						d <= t;
+					end
 				endcase
 
 			end
@@ -215,7 +217,7 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 						d <= $signed(s) < $signed(imm);
 					end
 					OP_LUI: begin
-						d <= imm;
+						d <= (imm << 16);
 					end
 					OP_BEQ: begin
 						d <= (s == t);
@@ -228,6 +230,18 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 					end
 					OP_BNE: begin
 						d <= (s != t);
+					end
+					OP_LW: begin
+						d <= s + imm;
+					end
+					OP_LW_S: begin
+						d <= s + imm;
+					end
+					OP_SW: begin
+						d <= s + imm;
+					end
+					OP_SW_S: begin
+						d <= s + imm;
 					end
 				endcase
 			end
