@@ -36,6 +36,7 @@ module test_cpu
    int 	       i;
    int 	       j;
    int        fd;
+   int        sld;
    int        gd;
    int        ok;
    int       outcount;
@@ -60,8 +61,9 @@ module test_cpu
    uart_rx #(CLK_PER_HALF_BIT) rxut(rxchar, rx_ready, ferr, pin_recv, clk, rstn);
 
    initial begin
-	   fd=$fopen("/home/omochan/3A/cpujikken/core/code/fib/fib.s.bintext","r");
-	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/fib/fib.s.res","r");
+	   // fd=$fopen("/home/omochan/3A/cpujikken/core/code/sandbox/sandbox.s.bintext","r");
+	   sld=$fopen("/home/omochan/3A/cpujikken/cserver-com/linux/ball.sld.in","r");
+	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/sandbox/sandbox.s.res","r");
       $dumpfile("test_cpu.vcd");
       $dumpvars(0);
 
@@ -87,17 +89,66 @@ module test_cpu
 
       #TMINTVL;
 	  
-	  begin:FILE_LOOP
+	//   begin:FILE_LOOP
+	// 	forever begin
+	// 		if($feof(fd) != 0) begin
+	// 		  $display("FILE End !!");
+	// 		  disable FILE_LOOP;
+	// 		end
+	// 		else begin
+	// 			ok = $fscanf(fd, "%b", txchar);
+	// 			if(ok != 1) begin
+	// 				$display("CODE FILE END !!");
+	// 				disable FILE_LOOP;
+	// 			end
+	// 			pin_send = 0; // start bit
+	// 			 start_bit = 1;
+	//			
+	// 			 #TMBIT;
+	// 			 start_bit = 0;
+	// 			 for (j=0; j<8; j++) begin
+	// 				pin_send = txchar[j];
+	// 				#TMBIT;
+	// 			 end
+	// 			 pin_send = 1; // stop bit
+	// 			 stop_bit = 1;
+	// 			 #TMBIT;
+	// 			 stop_bit = 0;
+	// 			 #TMINTVL;
+	// 	 end
+	// 	end
+	// end
+	
+	txchar <= 8'b10101010;
+
+	pin_send = 0;
+	start_bit = 1;
+
+	#TMBIT;
+
+	for(j = 0; j < 8; j++) begin
+		pin_send = txchar[j];
+		#TMBIT;
+	end
+	pin_send = 1;
+	stop_bit = 1;
+	#TMBIT;
+	stop_bit = 0;
+	#TMINTVL;
+
+
+	#1000000;
+	begin:SLD_LOOP
 		forever begin
-			if($feof(fd) != 0) begin
+			if($feof(sld) != 0) begin
 			  $display("FILE End !!");
-			  disable FILE_LOOP;
+			  disable SLD_LOOP;
 			end
 			else begin
-				ok = $fscanf(fd, "%b", txchar);
+				ok = $fscanf(sld, "%h", txchar);
 				if(ok != 1) begin
-					$display("INPUT FILE END !!");
-					disable FILE_LOOP;
+					$display("SLD FILE END !!");
+					disable SLD_LOOP;
 				end
 				pin_send = 0; // start bit
 				 start_bit = 1;
@@ -117,9 +168,13 @@ module test_cpu
 		end
 	end
 
-	$fclose(fd);
+
+	// $fclose(fd);
+	$fclose(sld);
 
 	$fscanf(gd, "%c", filechar);
+
+	$display("omo");
 
 	for(i = 0; i < 1000000000; i++) begin
 	   if (rx_ready) begin

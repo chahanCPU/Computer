@@ -4,7 +4,7 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	(input wire clk,
 	input wire rstn,
 	input wire [1:0] is_sorf,//special or fpu 01=special, 10=fpu
-	input wire instr,
+	input wire [5:0] instr,
 	input wire [31:0] s,
 	input wire [31:0] t,
 	input reg [31:0] imm,
@@ -135,7 +135,7 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 						d <= t >> h;
 					end
 					FUNC_JR : begin
-						d <= t;
+						d <= s;
 					end
 				endcase
 
@@ -243,6 +243,13 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 					OP_SW_S: begin
 						d <= s + imm;
 					end
+					OP_JAL: begin
+						d <= s;
+					end
+					OP_OUT: begin
+						d <= s;
+					end
+
 				endcase
 			end
 		end

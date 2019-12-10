@@ -23,7 +23,7 @@ LetRec
 		Var print_int
 		App
 			Var fib
-			Int 15
+			Int 9
 
 
 <****** Typing ******>
@@ -51,7 +51,7 @@ LetRec
 		Var print_int
 		App
 			Var fib
-			Int 15
+			Int 9
 
 
 <****** KNormal ******>
@@ -87,7 +87,7 @@ LetRec
 		Ti2 : int
 		Let
 			Ti1 : int
-			Int 15
+			Int 9
 			App fib Ti1 
 		ExtFunApp print_int Ti2 
 
@@ -125,7 +125,7 @@ LetRec
 		Ti2.12 : int
 		Let
 			Ti1.13 : int
-			Int 15
+			Int 9
 			App fib.10 Ti1.13 
 		ExtFunApp print_int Ti2.12 
 
@@ -161,7 +161,7 @@ LetRec
 										Add Ti6.15 Ti9.16
 	Let
 		Ti1.13 : int
-		Int 15
+		Int 9
 		Let
 			Ti2.12 : int
 			App fib.10 Ti1.13 
@@ -203,7 +203,7 @@ Prog
 										Add Ti6.15 Ti9.16
 	Let
 		Ti1.13 : int
-		Int 15
+		Int 9
 		Let
 			Ti2.12 : int
 			AppDir Lfib.10 Ti1.13 
@@ -253,7 +253,7 @@ Prog
 		int
 	Let
 		Ti1.13 : int
-		Set 15
+		Set 9
 		Let
 			Ti2.12 : int
 			CallDir
@@ -301,7 +301,7 @@ Prog
 		int
 	Let
 		Ti1.13 : int
-		Set 15
+		Set 9
 		Let
 			Ti2.12 : int
 			CallDir
@@ -361,7 +361,7 @@ Prog
 		int
 	Let
 		$2 : int
-		Set 15
+		Set 9
 		Let
 			$2 : int
 			CallDir

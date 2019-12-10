@@ -1,24 +1,26 @@
 <****** Parser ******>
 App
 	Var print_int
-	Neg
-		Int 100
+	App
+		Var read_int
+		Unit
 
 
 <****** Typing ******>
 App
 	Var print_int
-	Neg
-		Int 100
+	App
+		Var read_int
+		Unit
 
 
 <****** KNormal ******>
 Let
 	Ti2 : int
 	Let
-		Ti1 : int
-		Int 100
-		Neg Ti1
+		Tu1 : unit
+		Unit
+		ExtFunApp read_int Tu1 
 	ExtFunApp print_int Ti2 
 
 
@@ -26,58 +28,83 @@ Let
 Let
 	Ti2.3 : int
 	Let
-		Ti1.4 : int
-		Int 100
-		Neg Ti1.4
+		Tu1.4 : unit
+		Unit
+		ExtFunApp read_int Tu1.4 
 	ExtFunApp print_int Ti2.3 
 
 
 <****** iter ******>
 Let
-	Ti2.3 : int
-	Int -100
-	ExtFunApp print_int Ti2.3 
+	Tu1.4 : unit
+	Unit
+	Let
+		Ti2.3 : int
+		ExtFunApp read_int Tu1.4 
+		ExtFunApp print_int Ti2.3 
 
 
 <****** Closure ******>
 Prog
 	Let
-		Ti2.3 : int
-		Int -100
-		AppDir Lmin_caml_print_int Ti2.3 
+		Tu1.4 : unit
+		Unit
+		Let
+			Ti2.3 : int
+			AppDir Lmin_caml_read_int Tu1.4 
+			AppDir Lmin_caml_print_int Ti2.3 
 
 
 <****** Virtual ******>
 Prog
 	Let
-		Ti2.3 : int
-		Set -100
-		Ans
+		Tu1.4 : unit
+		Nop
+		Let
+			Ti2.3 : int
 			CallDir
-				Lmin_caml_print_int
-				Ti2.3 
+				Lmin_caml_read_int
 				
+				
+			Ans
+				CallDir
+					Lmin_caml_print_int
+					Ti2.3 
+					
 
 
 <****** Simm ******>
 Prog
 	Let
-		Ti2.3 : int
-		Set -100
-		Ans
+		Tu1.4 : unit
+		Nop
+		Let
+			Ti2.3 : int
 			CallDir
-				Lmin_caml_print_int
-				Ti2.3 
+				Lmin_caml_read_int
 				
+				
+			Ans
+				CallDir
+					Lmin_caml_print_int
+					Ti2.3 
+					
 
 
 <****** RegAlloc ******>
 Prog
 	Let
-		$2 : int
-		Set -100
-		Ans
+		%g0 : unit
+		Nop
+		Let
+			$2 : int
 			CallDir
-				Lmin_caml_print_int
-				$2 
+				Lmin_caml_read_int
 				
+				
+			Ans
+				CallDir
+					Lmin_caml_print_int
+					$2 
+					
+Sys_error("libmincaml.S: No such file or directory")

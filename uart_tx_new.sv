@@ -8,7 +8,7 @@ module uart_tx #(CLK_PER_HALF_BIT = 5208) (
                input wire       clk,
                input wire       rstn);
    
-   localparam e_clk_bit = CLK_PER_HALF_BIT * 2 - 8;
+   localparam e_clk_bit = CLK_PER_HALF_BIT * 2 - 1;
 
    
    logic [7:0]                  txbuf;
@@ -29,10 +29,7 @@ module uart_tx #(CLK_PER_HALF_BIT = 5208) (
    localparam s_bit_7 = 9;
    localparam s_stall_bit1 = 10;
    localparam s_stall_bit2 = 11;
-   localparam s_stall_bit3 = 12;
-   localparam s_stall_bit4 = 13;
-   localparam s_stall_bit5 = 14;
-   localparam s_stop_bit = 15;
+   localparam s_stop_bit = 12;
    
    // generate event signal
    always @(posedge clk) begin
@@ -78,9 +75,7 @@ module uart_tx #(CLK_PER_HALF_BIT = 5208) (
                tx_busy <= 0;
             end
          end else if (next) begin
-            if (status == s_bit_7 || status == s_stall_bit1 
-				|| status == s_stall_bit2 || status == s_stall_bit3
-				|| status == s_stall_bit4 || status == s_stall_bit5) begin
+            if (status == s_bit_7 || status == s_stall_bit1 || status == s_stall_bit2) begin
                txd <= 1;
                status <= status + 1;
             end else begin

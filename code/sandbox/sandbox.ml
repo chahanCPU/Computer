@@ -1,1 +1,1 @@
-print_int (-100)
+print_int ( read_int ())

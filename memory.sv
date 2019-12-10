@@ -19,12 +19,17 @@ module memory #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 	logic [1:0] latancy;
 
 	assign npc = is_jr ? d 
-				: is_jump ? bpc
+				: jump ? bpc
 				: (branch && d == 32'b1) ? bpc
 				: pc + 4;
 	
+	reg 				 tx_start;
+	wire 			 rx_ready;
+	wire 			 tx_busy;
+
+
 	BRAM BRAM (
-		.addra (d),
+		.addra (d[BRAM_SIZE+1:2]),
 		.dina (t),
 		.wea (wea),
 		.clka (clk),

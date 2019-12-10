@@ -40,45 +40,20 @@ mt19937 rng; //use it by rng() % mod, shuffle(all(vec), rng)
  
 string hexc = "0123456789abcdef";
 
-void solve() {
-	string str;
-	while(cin >> str) {
-		// debug(str);
-		int at = 0;
-		rep(i, 0, 2) {
-			int tmp = 0;
-			rep(j, 0, 4) {
-				tmp *= 2;
-				tmp += (str[at++] == '1');
-			}
-			cout << hexc[tmp];
+int main(int argc, char *argv[]) {
+	debug(argv[1], argv[2]);
+	ifstream in(argv[1]);
+	ofstream out(argv[2]);
+	char c;
+	int cnt = 0;
+	out << "memory_initialization_radix = 16 ;\n";
+	out << "memory_initialization_vector =\n";
+	while(in >> c) {
+		if(cnt >= 4) {
+			out << c;
+			if(cnt % 8 == 3) out << ",\n";
 		}
+		cnt++;
 	}
-}
- 
-uint32_t rd() {
-	uint32_t res;
-#ifdef __MINGW32__
-	asm volatile("rdrand %0" :"=a"(res) ::"cc");
-#else
-	res = std::random_device()();
-#endif
-	return res;
-}
- 
-int main() {
-#ifndef LOCAL
-	ios::sync_with_stdio(false);
-    cin.tie(0);
-#endif
-    cout << fixed;
-	cout.precision(20);
-    cerr << fixed;
-	cerr.precision(6);
-	rng.seed(rd());
-	freopen("hexcode.txt", "wt", stdout); //for tester
-	if(!freopen("code.txt", "rt", stdin)) return 1;
-	solve();
-    cerr << "Time: " << 1.0 * clock() / CLOCKS_PER_SEC << " s.\n";
 	return 0;
 }

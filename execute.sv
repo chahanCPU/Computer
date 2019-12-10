@@ -16,7 +16,7 @@ module execute #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, pa
 	input wire wea, //write enable
 	input wire is_jal,
 	input wire is_jr,
-	output wire d,
+	output wire [31:0] d,
 	output wire [INST_SIZE-1:0] bpc);
 
 

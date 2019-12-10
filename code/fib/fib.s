@@ -1,5 +1,5 @@
 min_caml_start:
-	ori	$2, $zero, 15
+	ori	$2, $zero, 9
 	sw	$ra, 4($sp)
 	addi	$sp, $sp, 8
 	jal	fib.10
