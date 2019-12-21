@@ -3,7 +3,7 @@
 module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, parameter BRAM_SIZE = 18)
 	(input wire clk,
 	input wire rstn,
-	input wire [INST_SIZE-1:0] pc,
+	input wire [31:0] pc,
 	input wire [31:0] inst,
 	input wire [1:0] regwritein,
 	input wire [31:0] dtowrite,
@@ -24,7 +24,8 @@ module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 	output wire is_jr,
 	output wire out,
 	output wire stop,
-	output wire [4:0] regdst);
+	output wire [4:0] regdst,
+	output wire is_in);
 
 
 	localparam OP_SPECIAL = 6'b000000;
@@ -44,6 +45,7 @@ module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 	localparam OP_J = 6'b000010;
 	localparam OP_JAL = 6'b000011;
 	localparam OP_NOOP = 6'b111110;
+	localparam OP_IN = 6'b111110;
 	localparam OP_OUT = 6'b111111;
 
 	localparam OP_LUI_S = 6'b011111;
@@ -79,7 +81,7 @@ module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 	localparam FPU_ITOF = 6'b001001;
 
 	wire [31:0] addra32;
-	reg [31:0][31:0] gpr = {32'b1110100, 32'b0, 32'b0, {27{32'bx}}, 32'b11111111111111100, 32'b0};
+	reg [31:0][31:0] gpr = {32'b0, 32'b0, 32'h30, 32'hf4240, {28{32'b0}}};
 	reg [31:0][31:0] fpr = {32{32'b0}};
 
 	assign instr = inst[31:26] == OP_SPECIAL ? inst[5:0]
@@ -94,7 +96,8 @@ module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 			? (inst[5:0] == FPU_ITOF ? gpr[inst[15:11]] : fpr[inst[15:11]])
 			: gpr[inst[25:21]];
 
-	assign t = inst[31:26] == OP_FPU ? fpr[inst[20:16]] : gpr[inst[20:16]];
+	assign t = inst[31:26] == OP_SW_S ? fpr[inst[20:16]] :
+		inst[31:26] == OP_FPU ? fpr[inst[20:16]] : gpr[inst[20:16]];
 
 	assign imm = inst[31:26] == OP_J ? {6'b0, inst[25:0]}
 				: inst[31:26] == OP_JAL ? {6'b0, inst[25:0]}
@@ -120,8 +123,9 @@ module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 						|| inst[31:26] == OP_BLEZ || inst[31:26] == OP_BNE
 						|| inst[31:26] == OP_OUT || inst[31:26] == OP_J
 						|| is_jr) ? 2'b00
-					: (inst[31:26] == OP_FPU && inst[5:0] == FPU_FTOI) ? 2'b01
-					: inst[31:26] == OP_FPU ? 2'b10
+					: (inst[31:26] == OP_FPU && (inst[5:0] == FPU_FTOI || inst[5:0] == FPU_EQ
+					|| inst[5:0] == FPU_LT || inst[5:0] == FPU_LE)) ? 2'b01
+					: (inst[31:26] == OP_FPU || inst[31:26] == OP_LW_S) ? 2'b10
 					: 2'b01;
 
 	assign is_jal = (inst[31:26] == OP_JAL);
@@ -137,7 +141,9 @@ module decode #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10, par
 					inst[20:16]
 				: inst[31:26] == OP_JAL ? 5'b11111 
 				: inst[31:26] == OP_FPU ? inst[10:6]
+				: inst[31:26] == OP_IN ? inst[25:21]
 				: inst[15:11];
+	assign is_in = inst[31:26] == OP_IN;
 	
 	always @(posedge clk) begin
 		if(regwritein == 2'b01) begin

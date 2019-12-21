@@ -1,0 +1,1418 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Fri Dec  6 17:32:28 2019
+# Process ID: 6759
+# Current directory: /home/omochan/3A/cpujikken/core
+# Command line: vivado
+# Log file: /home/omochan/3A/cpujikken/core/vivado.log
+# Journal file: /home/omochan/3A/cpujikken/core/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/omochan/project_2/project_2.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/omochan/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 6496.605 ; gain = 142.340 ; free physical = 10268 ; free virtual = 15121
+open_bd_design {/home/omochan/project_2/project_2.srcs/sources_1/bd/design_1/design_1.bd}
+Adding cell -- xilinx.com:ip:clk_wiz:6.0 - clk_wiz_0
+Adding cell -- xilinx.com:ip:proc_sys_reset:5.0 - proc_sys_reset_0
+Adding cell -- xilinx.com:ip:util_vector_logic:2.0 - util_vector_logic_0
+Adding cell -- xilinx.com:module_ref:top_wrapper:1.0 - top_wrapper_0
+Successfully read diagram <design_1> from BD file </home/omochan/project_2/project_2.srcs/sources_1/bd/design_1/design_1.bd>
+open_bd_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 6626.152 ; gain = 0.000 ; free physical = 10104 ; free virtual = 15022
+update_compile_order -fileset sources_1
+INFO: [Vivado 12-5457] ref source:/home/omochan/project_2/project_2.srcs/sources_1/ip/BRAM/BRAM.xci
+generate_target Simulation [get_files /home/omochan/project_2/project_2.srcs/sources_1/ip/BRAM/BRAM.xci]
+INFO: [IP_Flow 19-1706] Not generating 'Simulation' target for IP 'BRAM'. Target already exists and is up to date.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:100]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:34]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "test_cpu_behav -key {Behavioral:sim_1:Functional:test_cpu} -tclbatch {test_cpu.tcl} -view {/home/omochan/project_2/test_cpu_behav.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+open_wave_config /home/omochan/project_2/test_cpu_behav.wcfg
+source test_cpu.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'test_cpu_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 6691.781 ; gain = 49.656 ; free physical = 10022 ; free virtual = 14991
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Not the same!!! ans:31, real:32
+WARNING: [Simulator 45-29] Cannot open source file /wrk/2018.3/nightly/2018_12_06_2405991/packages/customer/vivado/data/ip/xilinx/blk_mem_gen_v8_4/simulation/blk_mem_gen_v8_4.v: file does not exist.
+run: Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 6721.941 ; gain = 19.133 ; free physical = 9888 ; free virtual = 14977
+CRITICAL WARNING: [HDL 9-806] Syntax error near "assign". [/home/omochan/3A/cpujikken/core/writereg.sv:13]
+CRITICAL WARNING: [HDL 9-806] Syntax error near "assign". [/home/omochan/3A/cpujikken/core/writereg.sv:13]
+CRITICAL WARNING: [HDL 9-806] Syntax error near "assign". [/home/omochan/3A/cpujikken/core/writereg.sv:13]
+CRITICAL WARNING: [HDL 9-806] Syntax error near "assign". [/home/omochan/3A/cpujikken/core/writereg.sv:13]
+CRITICAL WARNING: [HDL 9-806] Syntax error near "assign". [/home/omochan/3A/cpujikken/core/writereg.sv:14]
+CRITICAL WARNING: [HDL 9-806] Syntax error near "assign". [/home/omochan/3A/cpujikken/core/writereg.sv:14]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:27]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:27]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:28]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:28]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:28]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:28]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:28]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:28]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:31]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:31]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+CRITICAL WARNING: [HDL 9-806] Syntax error near ")". [/home/omochan/3A/cpujikken/core/writereg.sv:34]
+open_wave_config {/home/omochan/project_2/test_cpu_behav.wcfg}
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:100]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/omochan/project_2/project_2.sim/sim_1/behav/xsim/xsim.dir/test_cpu_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim/xsim.dir/test_cpu_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Fri Dec  6 17:59:05 2019. For additional details about this file, please refer to the WebTalk help file at /home/omochan/Vivado/2018.3/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Fri Dec  6 17:59:05 2019...
+run_program: Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 7548.289 ; gain = 0.000 ; free physical = 9818 ; free virtual = 14947
+INFO: [USF-XSim-69] 'elaborate' step finished in '8' seconds
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 7548.289 ; gain = 0.000 ; free physical = 9818 ; free virtual = 14947
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:19 ; elapsed = 00:00:15 . Memory (MB): peak = 7548.289 ; gain = 0.000 ; free physical = 9913 ; free virtual = 14939
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Not the same!!! ans:33, real:31
+END OF ANSWER!!
+TOO MANY OUTPUT!! real:31
+TOO MANY OUTPUT!! real:31
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+run: Time (s): cpu = 00:00:05 ; elapsed = 00:00:11 . Memory (MB): peak = 7548.289 ; gain = 0.000 ; free physical = 9793 ; free virtual = 14927
+current_wave_config {test_cpu_behav.wcfg}
+test_cpu_behav.wcfg
+add_wave {{/test_cpu/u1/de_out}} 
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:100]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 7548.289 ; gain = 0.000 ; free physical = 9885 ; free virtual = 14911
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Not the same!!! ans:33, real:31
+END OF ANSWER!!
+TOO MANY OUTPUT!! real:31
+TOO MANY OUTPUT!! real:31
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+run: Time (s): cpu = 00:00:03 ; elapsed = 00:00:13 . Memory (MB): peak = 7548.289 ; gain = 0.000 ; free physical = 9733 ; free virtual = 14894
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:16 ; elapsed = 00:00:06 . Memory (MB): peak = 7701.598 ; gain = 0.000 ; free physical = 9881 ; free virtual = 14908
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Not the same!!! ans:33, real:31
+END OF ANSWER!!
+TOO MANY OUTPUT!! real:31
+TOO MANY OUTPUT!! real:31
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:32
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:33
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+TOO MANY OUTPUT!! real:34
+run: Time (s): cpu = 00:00:08 ; elapsed = 00:00:38 . Memory (MB): peak = 7701.598 ; gain = 0.000 ; free physical = 9436 ; free virtual = 14846
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:38 ; elapsed = 00:00:06 . Memory (MB): peak = 7701.598 ; gain = 0.000 ; free physical = 9861 ; free virtual = 14889
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Not the same!!! ans:31, real:32
+          2: Not the same!!! ans:33, real:34
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:12 . Memory (MB): peak = 7701.598 ; gain = 0.000 ; free physical = 9746 ; free virtual = 14889
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:16 ; elapsed = 00:00:06 . Memory (MB): peak = 7756.625 ; gain = 0.008 ; free physical = 9877 ; free virtual = 14904
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Correct!!! ans:33, real:33
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:12 . Memory (MB): peak = 7756.625 ; gain = 0.000 ; free physical = 9741 ; free virtual = 14884
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:18 ; elapsed = 00:00:09 . Memory (MB): peak = 7788.641 ; gain = 0.000 ; free physical = 9861 ; free virtual = 14888
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Correct!!! ans:33, real:33
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:10 . Memory (MB): peak = 7788.641 ; gain = 0.000 ; free physical = 9763 ; free virtual = 14891
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:17 ; elapsed = 00:00:09 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9864 ; free virtual = 14892
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Correct!!! ans:33, real:33
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9738 ; free virtual = 14885
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:14 ; elapsed = 00:00:06 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9862 ; free virtual = 14890
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:31, real:31
+          2: Correct!!! ans:33, real:33
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:00:10 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9750 ; free virtual = 14885
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '0' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+run: Time (s): cpu = 00:00:15 ; elapsed = 00:01:17 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 8853 ; free virtual = 14841
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:32, real:32
+          2: Correct!!! ans:31, real:31
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9701 ; free virtual = 14859
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [USF-XSim-69] 'compile' step finished in '0' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '0' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Correct!!! ans:33, real:33
+          2: Correct!!! ans:34, real:34
+END OF ANSWER!!
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:00:11 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9729 ; free virtual = 14860
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 11 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Not the same!!! ans:35, real:37
+          2: Not the same!!! ans:35, real:33
+END OF ANSWER!!
+TOO MANY OUTPUT!! real:34
+run: Time (s): cpu = 00:00:03 ; elapsed = 00:00:28 . Memory (MB): peak = 7804.648 ; gain = 0.000 ; free physical = 9524 ; free virtual = 14846
+open_bd_design {/home/omochan/project_2/project_2.srcs/sources_1/bd/design_1/design_1.bd}
+INFO: [Device 21-403] Loading part xcku040-ffva1156-2-e
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+set_property -dict [list CONFIG.Write_Depth_A {261244}] [get_ips BRAM]
+generate_target all [get_files  /home/omochan/project_2/project_2.srcs/sources_1/ip/BRAM/BRAM.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'BRAM'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'BRAM'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'BRAM'...
+INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'BRAM'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'BRAM'...
+export_ip_user_files -of_objects [get_files /home/omochan/project_2/project_2.srcs/sources_1/ip/BRAM/BRAM.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files /home/omochan/project_2/project_2.srcs/sources_1/ip/BRAM/BRAM.xci] -directory /home/omochan/project_2/project_2.ip_user_files/sim_scripts -ip_user_files_dir /home/omochan/project_2/project_2.ip_user_files -ipstatic_source_dir /home/omochan/project_2/project_2.ip_user_files/ipstatic -lib_map_path [list {modelsim=/home/omochan/project_2/project_2.cache/compile_simlib/modelsim} {questa=/home/omochan/project_2/project_2.cache/compile_simlib/questa} {ies=/home/omochan/project_2/project_2.cache/compile_simlib/ies} {xcelium=/home/omochan/project_2/project_2.cache/compile_simlib/xcelium} {vcs=/home/omochan/project_2/project_2.cache/compile_simlib/vcs} {riviera=/home/omochan/project_2/project_2.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/omochan/project_2/project_2.srcs/sources_1/ip/BRAM/sim/BRAM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BRAM
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 18 for port 'addra' [/home/omochan/3A/cpujikken/core/memory.sv:32]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:29 ; elapsed = 00:00:06 . Memory (MB): peak = 8289.656 ; gain = 0.000 ; free physical = 9262 ; free virtual = 14381
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Not the same!!! ans:35, real:37
+          2: Not the same!!! ans:35, real:33
+END OF ANSWER!!
+TOO MANY OUTPUT!! real:34
+run: Time (s): cpu = 00:00:04 ; elapsed = 00:00:18 . Memory (MB): peak = 8289.656 ; gain = 0.000 ; free physical = 9042 ; free virtual = 14363
+relaunch_sim
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File '/home/omochan/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_cpu' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj test_cpu_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/ALU.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/decode.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module decode
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/execute.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module execute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/feq/feq.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module feq
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/fetch.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fetch
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fle/fle.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fle
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/flt/flt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fmul/fmul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fmul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/fsqrt/fsqrt.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsqrt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/ftoi/ftoi.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ftoi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/FPU/itof/itof.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module itof
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/memory.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module memory
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/topneo.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_rx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/uart_tx.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart_tx
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/writereg.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module writereg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/omochan/3A/cpujikken/core/test_cpu.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_cpu
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/omochan/project_2/project_2.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/omochan/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto b24fcdcc3c674c32b44efdbce674129f --incr --debug typical --relax --mt 8 -L blk_mem_gen_v8_4_2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot test_cpu_behav xil_defaultlib.test_cpu xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 2 differs from formal bit length 1 for port 'mode' [/home/omochan/3A/cpujikken/core/topneo.sv:101]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 5 for port 'regdstin' [/home/omochan/3A/cpujikken/core/topneo.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'clk' [/home/omochan/3A/cpujikken/core/ALU.sv:86]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'sdata' [/home/omochan/3A/cpujikken/core/writereg.sv:26]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.uart_rx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fetch(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.decode(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.fmul
+Compiling module xil_defaultlib.fsqrt
+Compiling module xil_defaultlib.feq
+Compiling module xil_defaultlib.flt
+Compiling module xil_defaultlib.fle
+Compiling module xil_defaultlib.ftoi
+Compiling module xil_defaultlib.itof
+Compiling module xil_defaultlib.ALU(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.execute(CLK_PER_HALF_BIT=30)
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_output_stage(...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_2.blk_mem_gen_v8_4_2(C_FAMILY="kin...
+Compiling module xil_defaultlib.BRAM
+Compiling module xil_defaultlib.memory(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.uart_tx(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.writereg(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.top(CLK_PER_HALF_BIT=30)
+Compiling module xil_defaultlib.test_cpu
+WARNING: [XSIM 43-3373] "/home/omochan/3A/cpujikken/core/test_cpu.sv" Line 122. System function $fscanf is used as system task. This system function should have a LHS e.g. x=$fscanf().
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_cpu_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:21 ; elapsed = 00:00:06 . Memory (MB): peak = 8334.676 ; gain = 0.000 ; free physical = 9181 ; free virtual = 14296
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run all
+Block Memory Generator module test_cpu.u1._memory.BRAM.inst.native_mem_module.blk_mem_gen_v8_4_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+INPUT FILE END !!
+          1: Not the same!!! ans:35, real:37
+          2: Not the same!!! ans:35, real:33
+END OF ANSWER!!
+TOO MANY OUTPUT!! real:34
+run: Time (s): cpu = 00:00:04 ; elapsed = 00:00:24 . Memory (MB): peak = 8334.676 ; gain = 0.000 ; free physical = 8938 ; free virtual = 14256
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Dec  6 18:25:17 2019...

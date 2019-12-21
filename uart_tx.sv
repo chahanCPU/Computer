@@ -8,14 +8,13 @@ module uart_tx #(CLK_PER_HALF_BIT = 5208) (
                input wire       clk,
                input wire       rstn);
    
-   localparam e_clk_bit = CLK_PER_HALF_BIT * 2 - 8;
+   localparam e_clk_bit = CLK_PER_HALF_BIT * 2 - 3;
 
    
    logic [7:0]                  txbuf;
    logic [3:0]                  status;
    logic [31:0]                 counter;
    logic                        next;
-   logic                        rst_ctr;
    
    localparam s_idle = 0;
    localparam s_start_bit = 1;
@@ -34,61 +33,46 @@ module uart_tx #(CLK_PER_HALF_BIT = 5208) (
    localparam s_stall_bit5 = 14;
    localparam s_stop_bit = 15;
    
-   // generate event signal
-   always @(posedge clk) begin
-      if (~rstn) begin
-         counter <= 0;
-         next <= 0;
-      end else begin
-         if (counter == e_clk_bit || rst_ctr) begin
-            counter <= 0;
-         end else begin
-            counter <= counter + 1;
-         end
-         if (~rst_ctr && counter == e_clk_bit) begin
-            next <= 1;
-         end else begin
-            next <= 0;
-         end
-      end
-   end
-
    always @(posedge clk) begin
       if (~rstn) begin
          txbuf <= 8'b0;
          status <= s_idle;
-         rst_ctr <= 0;
          txd <= 1;
          tx_busy <= 0;
+		 counter <= 0;
       end else begin
-         rst_ctr <= 0;
-         
          if (status == s_idle) begin
             if (tx_start) begin
                txbuf <= sdata;
                status <= s_start_bit;
-               rst_ctr <= 1;
                txd <= 0;
                tx_busy <= 1;
+			   counter <= 0;
             end
-         end else if (status == s_stop_bit) begin
-            if (next) begin
-               txd <= 1;
-               status <= s_idle;
-               tx_busy <= 0;
-            end
-         end else if (next) begin
+         end 
+		 else if (status == s_stop_bit && counter == e_clk_bit) begin
+			   txd <= 1;
+			   status <= s_idle;
+			   tx_busy <= 0;
+			   counter <= 0;
+         end 
+		 else if (counter == e_clk_bit) begin
             if (status == s_bit_7 || status == s_stall_bit1 
 				|| status == s_stall_bit2 || status == s_stall_bit3
 				|| status == s_stall_bit4 || status == s_stall_bit5) begin
                txd <= 1;
                status <= status + 1;
+			   counter <= 0;
             end else begin
                txd <= txbuf[0];
                txbuf <= txbuf >> 1;
                status <= status + 1;
+			   counter <= 0;
             end
          end
+		 else begin
+			 counter <= counter + 1;
+		 end
       end
    end
 endmodule // uart_tx

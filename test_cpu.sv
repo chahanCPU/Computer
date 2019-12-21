@@ -62,8 +62,8 @@ module test_cpu
 
    initial begin
 	   // fd=$fopen("/home/omochan/3A/cpujikken/core/code/sandbox/sandbox.s.bintext","r");
-	   sld=$fopen("/home/omochan/3A/cpujikken/cserver-com/linux/ball.sld.in","r");
-	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/sandbox/sandbox.s.res","r");
+	   sld=$fopen("/home/omochan/3A/cpujikken/core/code/minrt/ball.sld.in","r");
+	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/minrt/minrt.s.ppm","r");
       $dumpfile("test_cpu.vcd");
       $dumpvars(0);
 

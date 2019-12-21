@@ -23,302 +23,2314 @@ LetRec
 		Var print_int
 		App
 			Var fib
-			Int 9
+			Int 10
+
+
+<****** CatLib ******>
+LetRec
+	FunDef
+		fequal : (var (some (float -> float -> bool)))
+		x : (var (some float))
+		y : (var (some float))
+		Eq
+			FAdd
+				Var x
+				Float 0.000000
+			Var y
+	LetRec
+		FunDef
+			fless : (var (some (float -> float -> bool)))
+			x : (var (some float))
+			y : (var (some float))
+			Not
+				LE
+					Var y
+					FAdd
+						Var x
+						Float 0.000000
+		LetRec
+			FunDef
+				fispos : (var (some (float -> bool)))
+				x : (var (some float))
+				Not
+					LE
+						Var x
+						Float 0.000000
+			LetRec
+				FunDef
+					fisneg : (var (some (float -> bool)))
+					x : (var (some float))
+					Not
+						LE
+							Float 0.000000
+							Var x
+				LetRec
+					FunDef
+						fiszero : (var (some (float -> bool)))
+						x : (var (some float))
+						Eq
+							Var x
+							Float 0.000000
+					LetRec
+						FunDef
+							xor : (var (some (bool -> bool -> bool)))
+							x : (var (some bool))
+							y : (var (some bool))
+							If
+								Var x
+								Not
+									Var y
+								Var y
+						LetRec
+							FunDef
+								fhalf : (var (some (float -> float)))
+								x : (var (some float))
+								FMul
+									Var x
+									Float 0.500000
+							LetRec
+								FunDef
+									fsqr : (var (some (float -> float)))
+									x : (var (some float))
+									FMul
+										Var x
+										Var x
+								LetRec
+									FunDef
+										fabs : (var (some (float -> float)))
+										x : (var (some float))
+										If
+											LE
+												Float 0.000000
+												Var x
+											Var x
+											FNeg
+												Var x
+									LetRec
+										FunDef
+											fneg : (var (some (float -> float)))
+											x : (var (some float))
+											FNeg
+												Var x
+										LetRec
+											FunDef
+												floor : (var (some (float -> float)))
+												x : (var (some float))
+												Let
+													y : (var (some float))
+													App
+														Var float_of_int
+														App
+															Var int_of_float
+															Var x
+													If
+														LE
+															Float 0.000000
+															Var x
+														Var y
+														If
+															Eq
+																Var x
+																Var y
+															Var x
+															FSub
+																Var y
+																Float 1.000000
+											LetRec
+												FunDef
+													taylor_cos : (var (some (float -> float)))
+													x : (var (some float))
+													Let
+														x2 : (var (some float))
+														FMul
+															Var x
+															Var x
+														FSub
+															Float 1.000000
+															FMul
+																Var x2
+																FSub
+																	Float 0.500000
+																	FMul
+																		Var x2
+																		FSub
+																			Float 0.041664
+																			FMul
+																				Var x2
+																				Float 0.001370
+												LetRec
+													FunDef
+														taylor_sin : (var (some (float -> float)))
+														x : (var (some float))
+														Let
+															x2 : (var (some float))
+															FMul
+																Var x
+																Var x
+															FMul
+																Var x
+																FSub
+																	Float 1.000000
+																	FMul
+																		Var x2
+																		FSub
+																			Float 0.166667
+																			FMul
+																				Var x2
+																				FSub
+																					Float 0.008333
+																					FMul
+																						Var x2
+																						Float 0.000196
+													LetRec
+														FunDef
+															cos : (var (some (float -> float)))
+															x : (var (some float))
+															If
+																LE
+																	Float 0.000000
+																	Var x
+																If
+																	Not
+																		LE
+																			Var x
+																			Float 6.283185
+																	App
+																		Var cos
+																		FSub
+																			Var x
+																			Float 6.283185
+																	If
+																		Not
+																			LE
+																				Float 3.141593
+																				Var x
+																		If
+																			Not
+																				LE
+																					Float 1.570796
+																					Var x
+																			If
+																				Not
+																					LE
+																						Float 0.785398
+																						Var x
+																				App
+																					Var taylor_cos
+																					Var x
+																				App
+																					Var taylor_sin
+																					FSub
+																						Float 1.570796
+																						Var x
+																			If
+																				Not
+																					LE
+																						Float 2.356195
+																						Var x
+																				FNeg
+																					App
+																						Var taylor_sin
+																						FSub
+																							Var x
+																							Float 1.570796
+																				FNeg
+																					App
+																						Var taylor_cos
+																						FSub
+																							Float 3.141593
+																							Var x
+																		Let
+																			y : (var (some float))
+																			FSub
+																				Var x
+																				Float 3.141593
+																			If
+																				Not
+																					LE
+																						Float 1.570796
+																						Var y
+																				If
+																					Not
+																						LE
+																							Float 0.785398
+																							Var y
+																					FNeg
+																						App
+																							Var taylor_cos
+																							Var y
+																					FNeg
+																						App
+																							Var taylor_sin
+																							FSub
+																								Float 1.570796
+																								Var y
+																				If
+																					Not
+																						LE
+																							Float 2.356195
+																							Var y
+																					App
+																						Var taylor_sin
+																						FSub
+																							Var y
+																							Float 1.570796
+																					App
+																						Var taylor_cos
+																						FSub
+																							Float 3.141593
+																							Var y
+																App
+																	Var cos
+																	FNeg
+																		Var x
+														LetRec
+															FunDef
+																sin : (var (some (float -> float)))
+																x : (var (some float))
+																If
+																	LE
+																		Float 0.000000
+																		Var x
+																	If
+																		Not
+																			LE
+																				Var x
+																				Float 6.283185
+																		App
+																			Var sin
+																			FSub
+																				Var x
+																				Float 6.283185
+																		If
+																			Not
+																				LE
+																					Float 3.141593
+																					Var x
+																			If
+																				Not
+																					LE
+																						Float 1.570796
+																						Var x
+																				If
+																					Not
+																						LE
+																							Float 0.785398
+																							Var x
+																					App
+																						Var taylor_sin
+																						Var x
+																					App
+																						Var taylor_cos
+																						FSub
+																							Float 1.570796
+																							Var x
+																				If
+																					Not
+																						LE
+																							Float 2.356195
+																							Var x
+																					App
+																						Var taylor_cos
+																						FSub
+																							Var x
+																							Float 1.570796
+																					App
+																						Var taylor_sin
+																						FSub
+																							Float 3.141593
+																							Var x
+																			Let
+																				y : (var (some float))
+																				FSub
+																					Var x
+																					Float 3.141593
+																				If
+																					Not
+																						LE
+																							Float 1.570796
+																							Var y
+																					If
+																						Not
+																							LE
+																								Float 0.785398
+																								Var y
+																						FNeg
+																							App
+																								Var taylor_sin
+																								Var y
+																						FNeg
+																							App
+																								Var taylor_cos
+																								FSub
+																									Float 1.570796
+																									Var y
+																					If
+																						Not
+																							LE
+																								Float 2.356195
+																								Var y
+																						FNeg
+																							App
+																								Var taylor_cos
+																								FSub
+																									Var y
+																									Float 1.570796
+																						FNeg
+																							App
+																								Var taylor_sin
+																								FSub
+																									Float 3.141593
+																									Var y
+																	FNeg
+																		App
+																			Var sin
+																			FNeg
+																				Var x
+															LetRec
+																FunDef
+																	taylor_atan : (var (some (float -> float)))
+																	x : (var (some float))
+																	Let
+																		x2 : (var (some float))
+																		FMul
+																			Var x
+																			Var x
+																		FMul
+																			Var x
+																			FSub
+																				Float 1.000000
+																				FMul
+																					Var x2
+																					FSub
+																						Float 0.333333
+																						FMul
+																							Var x2
+																							FSub
+																								Float 0.200000
+																								FMul
+																									Var x2
+																									FSub
+																										Float 0.142857
+																										FMul
+																											Var x2
+																											FSub
+																												Float 0.111111
+																												FMul
+																													Var x2
+																													FSub
+																														Float 0.089764
+																														FMul
+																															Float 0.060035
+																															Var x2
+																LetRec
+																	FunDef
+																		atan : (var (some (float -> float)))
+																		x : (var (some float))
+																		If
+																			LE
+																				Float 0.000000
+																				Var x
+																			If
+																				Not
+																					LE
+																						Float 0.437500
+																						Var x
+																				App
+																					Var taylor_atan
+																					Var x
+																				If
+																					Not
+																						LE
+																							Float 2.356195
+																							Var x
+																					FAdd
+																						Float 0.785398
+																						App
+																							Var taylor_atan
+																							FDiv
+																								FSub
+																									Var x
+																									Float 1.000000
+																								FAdd
+																									Var x
+																									Float 1.000000
+																					FSub
+																						Float 1.570796
+																						App
+																							Var taylor_atan
+																							FDiv
+																								Float 1.000000
+																								Var x
+																			Let
+																				y : (var (some float))
+																				FNeg
+																					Var x
+																				FNeg
+																					App
+																						Var atan
+																						Var y
+																	LetRec
+																		FunDef
+																			fib : (var (some (int -> int)))
+																			n : (var (some int))
+																			If
+																				LE
+																					Var n
+																					Int 1
+																				Int 1
+																				Add
+																					App
+																						Var fib
+																						Sub
+																							Var n
+																							Int 1
+																					App
+																						Var fib
+																						Sub
+																							Var n
+																							Int 2
+																		App
+																			Var print_int
+																			App
+																				Var fib
+																				Int 10
 
 
 <****** Typing ******>
 LetRec
 	FunDef
-		fib : (int -> int)
-		n : int
-		If
-			LE
-				Var n
-				Int 1
-			Int 1
-			Add
-				App
-					Var fib
-					Sub
-						Var n
-						Int 1
-				App
-					Var fib
-					Sub
-						Var n
-						Int 2
-	App
-		Var print_int
-		App
-			Var fib
-			Int 9
+		fequal : (float -> float -> bool)
+		x : float
+		y : float
+		Eq
+			FAdd
+				Var x
+				Float 0.000000
+			Var y
+	LetRec
+		FunDef
+			fless : (float -> float -> bool)
+			x : float
+			y : float
+			Not
+				LE
+					Var y
+					FAdd
+						Var x
+						Float 0.000000
+		LetRec
+			FunDef
+				fispos : (float -> bool)
+				x : float
+				Not
+					LE
+						Var x
+						Float 0.000000
+			LetRec
+				FunDef
+					fisneg : (float -> bool)
+					x : float
+					Not
+						LE
+							Float 0.000000
+							Var x
+				LetRec
+					FunDef
+						fiszero : (float -> bool)
+						x : float
+						Eq
+							Var x
+							Float 0.000000
+					LetRec
+						FunDef
+							xor : (bool -> bool -> bool)
+							x : bool
+							y : bool
+							If
+								Var x
+								Not
+									Var y
+								Var y
+						LetRec
+							FunDef
+								fhalf : (float -> float)
+								x : float
+								FMul
+									Var x
+									Float 0.500000
+							LetRec
+								FunDef
+									fsqr : (float -> float)
+									x : float
+									FMul
+										Var x
+										Var x
+								LetRec
+									FunDef
+										fabs : (float -> float)
+										x : float
+										If
+											LE
+												Float 0.000000
+												Var x
+											Var x
+											FNeg
+												Var x
+									LetRec
+										FunDef
+											fneg : (float -> float)
+											x : float
+											FNeg
+												Var x
+										LetRec
+											FunDef
+												floor : (float -> float)
+												x : float
+												Let
+													y : float
+													App
+														Var float_of_int
+														App
+															Var int_of_float
+															Var x
+													If
+														LE
+															Float 0.000000
+															Var x
+														Var y
+														If
+															Eq
+																Var x
+																Var y
+															Var x
+															FSub
+																Var y
+																Float 1.000000
+											LetRec
+												FunDef
+													taylor_cos : (float -> float)
+													x : float
+													Let
+														x2 : float
+														FMul
+															Var x
+															Var x
+														FSub
+															Float 1.000000
+															FMul
+																Var x2
+																FSub
+																	Float 0.500000
+																	FMul
+																		Var x2
+																		FSub
+																			Float 0.041664
+																			FMul
+																				Var x2
+																				Float 0.001370
+												LetRec
+													FunDef
+														taylor_sin : (float -> float)
+														x : float
+														Let
+															x2 : float
+															FMul
+																Var x
+																Var x
+															FMul
+																Var x
+																FSub
+																	Float 1.000000
+																	FMul
+																		Var x2
+																		FSub
+																			Float 0.166667
+																			FMul
+																				Var x2
+																				FSub
+																					Float 0.008333
+																					FMul
+																						Var x2
+																						Float 0.000196
+													LetRec
+														FunDef
+															cos : (float -> float)
+															x : float
+															If
+																LE
+																	Float 0.000000
+																	Var x
+																If
+																	Not
+																		LE
+																			Var x
+																			Float 6.283185
+																	App
+																		Var cos
+																		FSub
+																			Var x
+																			Float 6.283185
+																	If
+																		Not
+																			LE
+																				Float 3.141593
+																				Var x
+																		If
+																			Not
+																				LE
+																					Float 1.570796
+																					Var x
+																			If
+																				Not
+																					LE
+																						Float 0.785398
+																						Var x
+																				App
+																					Var taylor_cos
+																					Var x
+																				App
+																					Var taylor_sin
+																					FSub
+																						Float 1.570796
+																						Var x
+																			If
+																				Not
+																					LE
+																						Float 2.356195
+																						Var x
+																				FNeg
+																					App
+																						Var taylor_sin
+																						FSub
+																							Var x
+																							Float 1.570796
+																				FNeg
+																					App
+																						Var taylor_cos
+																						FSub
+																							Float 3.141593
+																							Var x
+																		Let
+																			y : float
+																			FSub
+																				Var x
+																				Float 3.141593
+																			If
+																				Not
+																					LE
+																						Float 1.570796
+																						Var y
+																				If
+																					Not
+																						LE
+																							Float 0.785398
+																							Var y
+																					FNeg
+																						App
+																							Var taylor_cos
+																							Var y
+																					FNeg
+																						App
+																							Var taylor_sin
+																							FSub
+																								Float 1.570796
+																								Var y
+																				If
+																					Not
+																						LE
+																							Float 2.356195
+																							Var y
+																					App
+																						Var taylor_sin
+																						FSub
+																							Var y
+																							Float 1.570796
+																					App
+																						Var taylor_cos
+																						FSub
+																							Float 3.141593
+																							Var y
+																App
+																	Var cos
+																	FNeg
+																		Var x
+														LetRec
+															FunDef
+																sin : (float -> float)
+																x : float
+																If
+																	LE
+																		Float 0.000000
+																		Var x
+																	If
+																		Not
+																			LE
+																				Var x
+																				Float 6.283185
+																		App
+																			Var sin
+																			FSub
+																				Var x
+																				Float 6.283185
+																		If
+																			Not
+																				LE
+																					Float 3.141593
+																					Var x
+																			If
+																				Not
+																					LE
+																						Float 1.570796
+																						Var x
+																				If
+																					Not
+																						LE
+																							Float 0.785398
+																							Var x
+																					App
+																						Var taylor_sin
+																						Var x
+																					App
+																						Var taylor_cos
+																						FSub
+																							Float 1.570796
+																							Var x
+																				If
+																					Not
+																						LE
+																							Float 2.356195
+																							Var x
+																					App
+																						Var taylor_cos
+																						FSub
+																							Var x
+																							Float 1.570796
+																					App
+																						Var taylor_sin
+																						FSub
+																							Float 3.141593
+																							Var x
+																			Let
+																				y : float
+																				FSub
+																					Var x
+																					Float 3.141593
+																				If
+																					Not
+																						LE
+																							Float 1.570796
+																							Var y
+																					If
+																						Not
+																							LE
+																								Float 0.785398
+																								Var y
+																						FNeg
+																							App
+																								Var taylor_sin
+																								Var y
+																						FNeg
+																							App
+																								Var taylor_cos
+																								FSub
+																									Float 1.570796
+																									Var y
+																					If
+																						Not
+																							LE
+																								Float 2.356195
+																								Var y
+																						FNeg
+																							App
+																								Var taylor_cos
+																								FSub
+																									Var y
+																									Float 1.570796
+																						FNeg
+																							App
+																								Var taylor_sin
+																								FSub
+																									Float 3.141593
+																									Var y
+																	FNeg
+																		App
+																			Var sin
+																			FNeg
+																				Var x
+															LetRec
+																FunDef
+																	taylor_atan : (float -> float)
+																	x : float
+																	Let
+																		x2 : float
+																		FMul
+																			Var x
+																			Var x
+																		FMul
+																			Var x
+																			FSub
+																				Float 1.000000
+																				FMul
+																					Var x2
+																					FSub
+																						Float 0.333333
+																						FMul
+																							Var x2
+																							FSub
+																								Float 0.200000
+																								FMul
+																									Var x2
+																									FSub
+																										Float 0.142857
+																										FMul
+																											Var x2
+																											FSub
+																												Float 0.111111
+																												FMul
+																													Var x2
+																													FSub
+																														Float 0.089764
+																														FMul
+																															Float 0.060035
+																															Var x2
+																LetRec
+																	FunDef
+																		atan : (float -> float)
+																		x : float
+																		If
+																			LE
+																				Float 0.000000
+																				Var x
+																			If
+																				Not
+																					LE
+																						Float 0.437500
+																						Var x
+																				App
+																					Var taylor_atan
+																					Var x
+																				If
+																					Not
+																						LE
+																							Float 2.356195
+																							Var x
+																					FAdd
+																						Float 0.785398
+																						App
+																							Var taylor_atan
+																							FDiv
+																								FSub
+																									Var x
+																									Float 1.000000
+																								FAdd
+																									Var x
+																									Float 1.000000
+																					FSub
+																						Float 1.570796
+																						App
+																							Var taylor_atan
+																							FDiv
+																								Float 1.000000
+																								Var x
+																			Let
+																				y : float
+																				FNeg
+																					Var x
+																				FNeg
+																					App
+																						Var atan
+																						Var y
+																	LetRec
+																		FunDef
+																			fib : (int -> int)
+																			n : int
+																			If
+																				LE
+																					Var n
+																					Int 1
+																				Int 1
+																				Add
+																					App
+																						Var fib
+																						Sub
+																							Var n
+																							Int 1
+																					App
+																						Var fib
+																						Sub
+																							Var n
+																							Int 2
+																		App
+																			Var print_int
+																			App
+																				Var fib
+																				Int 10
 
 
 <****** KNormal ******>
 LetRec
 	FunDef
-		fib : (int -> int)
-		n : int
+		fequal : (float -> float -> bool)
+		x : float
+		y : float
 		Let
-			Ti3 : int
-			Int 1
-			IfLE n Ti3
+			Td135 : float
+			Let
+				Td134 : float
+				Float 0.000000
+				FAdd x Td134
+			IfEq Td135 y
 				Int 1
+				Int 0
+	LetRec
+		FunDef
+			fless : (float -> float -> bool)
+			x : float
+			y : float
+			Let
+				Td133 : float
 				Let
-					Ti6 : int
+					Td132 : float
+					Float 0.000000
+					FAdd x Td132
+				IfLE y Td133
+					Int 0
+					Int 1
+		LetRec
+			FunDef
+				fispos : (float -> bool)
+				x : float
+				Let
+					Td131 : float
+					Float 0.000000
+					IfLE x Td131
+						Int 0
+						Int 1
+			LetRec
+				FunDef
+					fisneg : (float -> bool)
+					x : float
 					Let
-						Ti5 : int
-						Let
-							Ti4 : int
+						Td130 : float
+						Float 0.000000
+						IfLE Td130 x
+							Int 0
 							Int 1
-							Sub n Ti4
-						App fib Ti5 
-					Let
-						Ti9 : int
+				LetRec
+					FunDef
+						fiszero : (float -> bool)
+						x : float
 						Let
-							Ti8 : int
+							Td129 : float
+							Float 0.000000
+							IfEq x Td129
+								Int 1
+								Int 0
+					LetRec
+						FunDef
+							xor : (bool -> bool -> bool)
+							x : bool
+							y : bool
 							Let
-								Ti7 : int
-								Int 2
-								Sub n Ti7
-							App fib Ti8 
-						Add Ti6 Ti9
-	Let
-		Ti2 : int
-		Let
-			Ti1 : int
-			Int 9
-			App fib Ti1 
-		ExtFunApp print_int Ti2 
+								Ti127 : int
+								Int 0
+								IfEq x Ti127
+									Var y
+									Let
+										Ti128 : int
+										Int 0
+										IfEq y Ti128
+											Int 1
+											Int 0
+						LetRec
+							FunDef
+								fhalf : (float -> float)
+								x : float
+								Let
+									Td126 : float
+									Float 0.500000
+									FMul x Td126
+							LetRec
+								FunDef
+									fsqr : (float -> float)
+									x : float
+									FMul x x
+								LetRec
+									FunDef
+										fabs : (float -> float)
+										x : float
+										Let
+											Td125 : float
+											Float 0.000000
+											IfLE Td125 x
+												Var x
+												FNeg x
+									LetRec
+										FunDef
+											fneg : (float -> float)
+											x : float
+											FNeg x
+										LetRec
+											FunDef
+												floor : (float -> float)
+												x : float
+												Let
+													y : float
+													Let
+														Ti122 : int
+														ExtFunApp int_of_float x 
+														ExtFunApp float_of_int Ti122 
+													Let
+														Td123 : float
+														Float 0.000000
+														IfLE Td123 x
+															Var y
+															IfEq x y
+																Var x
+																Let
+																	Td124 : float
+																	Float 1.000000
+																	FSub y Td124
+											LetRec
+												FunDef
+													taylor_cos : (float -> float)
+													x : float
+													Let
+														x2 : float
+														FMul x x
+														Let
+															Td113 : float
+															Float 1.000000
+															Let
+																Td121 : float
+																Let
+																	Td120 : float
+																	Let
+																		Td114 : float
+																		Float 0.500000
+																		Let
+																			Td119 : float
+																			Let
+																				Td118 : float
+																				Let
+																					Td115 : float
+																					Float 0.041664
+																					Let
+																						Td117 : float
+																						Let
+																							Td116 : float
+																							Float 0.001370
+																							FMul x2 Td116
+																						FSub Td115 Td117
+																				FMul x2 Td118
+																			FSub Td114 Td119
+																	FMul x2 Td120
+																FSub Td113 Td121
+												LetRec
+													FunDef
+														taylor_sin : (float -> float)
+														x : float
+														Let
+															x2 : float
+															FMul x x
+															Let
+																Td112 : float
+																Let
+																	Td103 : float
+																	Float 1.000000
+																	Let
+																		Td111 : float
+																		Let
+																			Td110 : float
+																			Let
+																				Td104 : float
+																				Float 0.166667
+																				Let
+																					Td109 : float
+																					Let
+																						Td108 : float
+																						Let
+																							Td105 : float
+																							Float 0.008333
+																							Let
+																								Td107 : float
+																								Let
+																									Td106 : float
+																									Float 0.000196
+																									FMul x2 Td106
+																								FSub Td105 Td107
+																						FMul x2 Td108
+																					FSub Td104 Td109
+																			FMul x2 Td110
+																		FSub Td103 Td111
+																FMul x Td112
+													LetRec
+														FunDef
+															cos : (float -> float)
+															x : float
+															Let
+																Td74 : float
+																Float 0.000000
+																IfLE Td74 x
+																	Let
+																		Td75 : float
+																		Float 6.283185
+																		IfLE x Td75
+																			Let
+																				Td76 : float
+																				Float 3.141593
+																				IfLE Td76 x
+																					Let
+																						y : float
+																						Let
+																							Td77 : float
+																							Float 3.141593
+																							FSub x Td77
+																						Let
+																							Td78 : float
+																							Float 1.570796
+																							IfLE Td78 y
+																								Let
+																									Td79 : float
+																									Float 2.356195
+																									IfLE Td79 y
+																										Let
+																											Td81 : float
+																											Let
+																												Td80 : float
+																												Float 3.141593
+																												FSub Td80 y
+																											App taylor_cos Td81 
+																										Let
+																											Td83 : float
+																											Let
+																												Td82 : float
+																												Float 1.570796
+																												FSub y Td82
+																											App taylor_sin Td83 
+																								Let
+																									Td84 : float
+																									Float 0.785398
+																									IfLE Td84 y
+																										Let
+																											Td87 : float
+																											Let
+																												Td86 : float
+																												Let
+																													Td85 : float
+																													Float 1.570796
+																													FSub Td85 y
+																												App taylor_sin Td86 
+																											FNeg Td87
+																										Let
+																											Td88 : float
+																											App taylor_cos y 
+																											FNeg Td88
+																					Let
+																						Td89 : float
+																						Float 1.570796
+																						IfLE Td89 x
+																							Let
+																								Td90 : float
+																								Float 2.356195
+																								IfLE Td90 x
+																									Let
+																										Td93 : float
+																										Let
+																											Td92 : float
+																											Let
+																												Td91 : float
+																												Float 3.141593
+																												FSub Td91 x
+																											App taylor_cos Td92 
+																										FNeg Td93
+																									Let
+																										Td96 : float
+																										Let
+																											Td95 : float
+																											Let
+																												Td94 : float
+																												Float 1.570796
+																												FSub x Td94
+																											App taylor_sin Td95 
+																										FNeg Td96
+																							Let
+																								Td97 : float
+																								Float 0.785398
+																								IfLE Td97 x
+																									Let
+																										Td99 : float
+																										Let
+																											Td98 : float
+																											Float 1.570796
+																											FSub Td98 x
+																										App taylor_sin Td99 
+																									App taylor_cos x 
+																			Let
+																				Td101 : float
+																				Let
+																					Td100 : float
+																					Float 6.283185
+																					FSub x Td100
+																				App cos Td101 
+																	Let
+																		Td102 : float
+																		FNeg x
+																		App cos Td102 
+														LetRec
+															FunDef
+																sin : (float -> float)
+																x : float
+																Let
+																	Td44 : float
+																	Float 0.000000
+																	IfLE Td44 x
+																		Let
+																			Td45 : float
+																			Float 6.283185
+																			IfLE x Td45
+																				Let
+																					Td46 : float
+																					Float 3.141593
+																					IfLE Td46 x
+																						Let
+																							y : float
+																							Let
+																								Td47 : float
+																								Float 3.141593
+																								FSub x Td47
+																							Let
+																								Td48 : float
+																								Float 1.570796
+																								IfLE Td48 y
+																									Let
+																										Td49 : float
+																										Float 2.356195
+																										IfLE Td49 y
+																											Let
+																												Td52 : float
+																												Let
+																													Td51 : float
+																													Let
+																														Td50 : float
+																														Float 3.141593
+																														FSub Td50 y
+																													App taylor_sin Td51 
+																												FNeg Td52
+																											Let
+																												Td55 : float
+																												Let
+																													Td54 : float
+																													Let
+																														Td53 : float
+																														Float 1.570796
+																														FSub y Td53
+																													App taylor_cos Td54 
+																												FNeg Td55
+																									Let
+																										Td56 : float
+																										Float 0.785398
+																										IfLE Td56 y
+																											Let
+																												Td59 : float
+																												Let
+																													Td58 : float
+																													Let
+																														Td57 : float
+																														Float 1.570796
+																														FSub Td57 y
+																													App taylor_cos Td58 
+																												FNeg Td59
+																											Let
+																												Td60 : float
+																												App taylor_sin y 
+																												FNeg Td60
+																						Let
+																							Td61 : float
+																							Float 1.570796
+																							IfLE Td61 x
+																								Let
+																									Td62 : float
+																									Float 2.356195
+																									IfLE Td62 x
+																										Let
+																											Td64 : float
+																											Let
+																												Td63 : float
+																												Float 3.141593
+																												FSub Td63 x
+																											App taylor_sin Td64 
+																										Let
+																											Td66 : float
+																											Let
+																												Td65 : float
+																												Float 1.570796
+																												FSub x Td65
+																											App taylor_cos Td66 
+																								Let
+																									Td67 : float
+																									Float 0.785398
+																									IfLE Td67 x
+																										Let
+																											Td69 : float
+																											Let
+																												Td68 : float
+																												Float 1.570796
+																												FSub Td68 x
+																											App taylor_cos Td69 
+																										App taylor_sin x 
+																				Let
+																					Td71 : float
+																					Let
+																						Td70 : float
+																						Float 6.283185
+																						FSub x Td70
+																					App sin Td71 
+																		Let
+																			Td73 : float
+																			Let
+																				Td72 : float
+																				FNeg x
+																				App sin Td72 
+																			FNeg Td73
+															LetRec
+																FunDef
+																	taylor_atan : (float -> float)
+																	x : float
+																	Let
+																		x2 : float
+																		FMul x x
+																		Let
+																			Td43 : float
+																			Let
+																				Td25 : float
+																				Float 1.000000
+																				Let
+																					Td42 : float
+																					Let
+																						Td41 : float
+																						Let
+																							Td26 : float
+																							Float 0.333333
+																							Let
+																								Td40 : float
+																								Let
+																									Td39 : float
+																									Let
+																										Td27 : float
+																										Float 0.200000
+																										Let
+																											Td38 : float
+																											Let
+																												Td37 : float
+																												Let
+																													Td28 : float
+																													Float 0.142857
+																													Let
+																														Td36 : float
+																														Let
+																															Td35 : float
+																															Let
+																																Td29 : float
+																																Float 0.111111
+																																Let
+																																	Td34 : float
+																																	Let
+																																		Td33 : float
+																																		Let
+																																			Td30 : float
+																																			Float 0.089764
+																																			Let
+																																				Td32 : float
+																																				Let
+																																					Td31 : float
+																																					Float 0.060035
+																																					FMul Td31 x2
+																																				FSub Td30 Td32
+																																		FMul x2 Td33
+																																	FSub Td29 Td34
+																															FMul x2 Td35
+																														FSub Td28 Td36
+																												FMul x2 Td37
+																											FSub Td27 Td38
+																									FMul x2 Td39
+																								FSub Td26 Td40
+																						FMul x2 Td41
+																					FSub Td25 Td42
+																			FMul x Td43
+																LetRec
+																	FunDef
+																		atan : (float -> float)
+																		x : float
+																		Let
+																			Td10 : float
+																			Float 0.000000
+																			IfLE Td10 x
+																				Let
+																					Td11 : float
+																					Float 0.437500
+																					IfLE Td11 x
+																						Let
+																							Td12 : float
+																							Float 2.356195
+																							IfLE Td12 x
+																								Let
+																									Td13 : float
+																									Float 1.570796
+																									Let
+																										Td16 : float
+																										Let
+																											Td15 : float
+																											Let
+																												Td14 : float
+																												Float 1.000000
+																												FDiv Td14 x
+																											App taylor_atan Td15 
+																										FSub Td13 Td16
+																								Let
+																									Td17 : float
+																									Float 0.785398
+																									Let
+																										Td23 : float
+																										Let
+																											Td22 : float
+																											Let
+																												Td19 : float
+																												Let
+																													Td18 : float
+																													Float 1.000000
+																													FSub x Td18
+																												Let
+																													Td21 : float
+																													Let
+																														Td20 : float
+																														Float 1.000000
+																														FAdd x Td20
+																													FDiv Td19 Td21
+																											App taylor_atan Td22 
+																										FAdd Td17 Td23
+																						App taylor_atan x 
+																				Let
+																					y : float
+																					FNeg x
+																					Let
+																						Td24 : float
+																						App atan y 
+																						FNeg Td24
+																	LetRec
+																		FunDef
+																			fib : (int -> int)
+																			n : int
+																			Let
+																				Ti3 : int
+																				Int 1
+																				IfLE n Ti3
+																					Int 1
+																					Let
+																						Ti6 : int
+																						Let
+																							Ti5 : int
+																							Let
+																								Ti4 : int
+																								Int 1
+																								Sub n Ti4
+																							App fib Ti5 
+																						Let
+																							Ti9 : int
+																							Let
+																								Ti8 : int
+																								Let
+																									Ti7 : int
+																									Int 2
+																									Sub n Ti7
+																								App fib Ti8 
+																							Add Ti6 Ti9
+																		Let
+																			Ti2 : int
+																			Let
+																				Ti1 : int
+																				Int 10
+																				App fib Ti1 
+																			ExtFunApp print_int Ti2 
 
 
 <****** Alpha ******>
 LetRec
 	FunDef
-		fib.10 : (int -> int)
-		n.11 : int
+		fequal.136 : (float -> float -> bool)
+		x.137 : float
+		y.138 : float
 		Let
-			Ti3.14 : int
-			Int 1
-			IfLE n.11 Ti3.14
+			Td135.315 : float
+			Let
+				Td134.316 : float
+				Float 0.000000
+				FAdd x.137 Td134.316
+			IfEq Td135.315 y.138
 				Int 1
+				Int 0
+	LetRec
+		FunDef
+			fless.139 : (float -> float -> bool)
+			x.140 : float
+			y.141 : float
+			Let
+				Td133.313 : float
 				Let
-					Ti6.15 : int
+					Td132.314 : float
+					Float 0.000000
+					FAdd x.140 Td132.314
+				IfLE y.141 Td133.313
+					Int 0
+					Int 1
+		LetRec
+			FunDef
+				fispos.142 : (float -> bool)
+				x.143 : float
+				Let
+					Td131.312 : float
+					Float 0.000000
+					IfLE x.143 Td131.312
+						Int 0
+						Int 1
+			LetRec
+				FunDef
+					fisneg.144 : (float -> bool)
+					x.145 : float
 					Let
-						Ti5.19 : int
-						Let
-							Ti4.20 : int
+						Td130.311 : float
+						Float 0.000000
+						IfLE Td130.311 x.145
+							Int 0
 							Int 1
-							Sub n.11 Ti4.20
-						App fib.10 Ti5.19 
-					Let
-						Ti9.16 : int
+				LetRec
+					FunDef
+						fiszero.146 : (float -> bool)
+						x.147 : float
 						Let
-							Ti8.17 : int
+							Td129.310 : float
+							Float 0.000000
+							IfEq x.147 Td129.310
+								Int 1
+								Int 0
+					LetRec
+						FunDef
+							xor.148 : (bool -> bool -> bool)
+							x.149 : bool
+							y.150 : bool
 							Let
-								Ti7.18 : int
-								Int 2
-								Sub n.11 Ti7.18
-							App fib.10 Ti8.17 
-						Add Ti6.15 Ti9.16
-	Let
-		Ti2.12 : int
-		Let
-			Ti1.13 : int
-			Int 9
-			App fib.10 Ti1.13 
-		ExtFunApp print_int Ti2.12 
+								Ti127.308 : int
+								Int 0
+								IfEq x.149 Ti127.308
+									Var y.150
+									Let
+										Ti128.309 : int
+										Int 0
+										IfEq y.150 Ti128.309
+											Int 1
+											Int 0
+						LetRec
+							FunDef
+								fhalf.151 : (float -> float)
+								x.152 : float
+								Let
+									Td126.307 : float
+									Float 0.500000
+									FMul x.152 Td126.307
+							LetRec
+								FunDef
+									fsqr.153 : (float -> float)
+									x.154 : float
+									FMul x.154 x.154
+								LetRec
+									FunDef
+										fabs.155 : (float -> float)
+										x.156 : float
+										Let
+											Td125.306 : float
+											Float 0.000000
+											IfLE Td125.306 x.156
+												Var x.156
+												FNeg x.156
+									LetRec
+										FunDef
+											fneg.157 : (float -> float)
+											x.158 : float
+											FNeg x.158
+										LetRec
+											FunDef
+												floor.159 : (float -> float)
+												x.160 : float
+												Let
+													y.302 : float
+													Let
+														Ti122.305 : int
+														ExtFunApp int_of_float x.160 
+														ExtFunApp float_of_int Ti122.305 
+													Let
+														Td123.303 : float
+														Float 0.000000
+														IfLE Td123.303 x.160
+															Var y.302
+															IfEq x.160 y.302
+																Var x.160
+																Let
+																	Td124.304 : float
+																	Float 1.000000
+																	FSub y.302 Td124.304
+											LetRec
+												FunDef
+													taylor_cos.161 : (float -> float)
+													x.162 : float
+													Let
+														x2.292 : float
+														FMul x.162 x.162
+														Let
+															Td113.293 : float
+															Float 1.000000
+															Let
+																Td121.294 : float
+																Let
+																	Td120.295 : float
+																	Let
+																		Td114.296 : float
+																		Float 0.500000
+																		Let
+																			Td119.297 : float
+																			Let
+																				Td118.298 : float
+																				Let
+																					Td115.299 : float
+																					Float 0.041664
+																					Let
+																						Td117.300 : float
+																						Let
+																							Td116.301 : float
+																							Float 0.001370
+																							FMul x2.292 Td116.301
+																						FSub Td115.299 Td117.300
+																				FMul x2.292 Td118.298
+																			FSub Td114.296 Td119.297
+																	FMul x2.292 Td120.295
+																FSub Td113.293 Td121.294
+												LetRec
+													FunDef
+														taylor_sin.163 : (float -> float)
+														x.164 : float
+														Let
+															x2.281 : float
+															FMul x.164 x.164
+															Let
+																Td112.282 : float
+																Let
+																	Td103.283 : float
+																	Float 1.000000
+																	Let
+																		Td111.284 : float
+																		Let
+																			Td110.285 : float
+																			Let
+																				Td104.286 : float
+																				Float 0.166667
+																				Let
+																					Td109.287 : float
+																					Let
+																						Td108.288 : float
+																						Let
+																							Td105.289 : float
+																							Float 0.008333
+																							Let
+																								Td107.290 : float
+																								Let
+																									Td106.291 : float
+																									Float 0.000196
+																									FMul x2.281 Td106.291
+																								FSub Td105.289 Td107.290
+																						FMul x2.281 Td108.288
+																					FSub Td104.286 Td109.287
+																			FMul x2.281 Td110.285
+																		FSub Td103.283 Td111.284
+																FMul x.164 Td112.282
+													LetRec
+														FunDef
+															cos.165 : (float -> float)
+															x.166 : float
+															Let
+																Td74.251 : float
+																Float 0.000000
+																IfLE Td74.251 x.166
+																	Let
+																		Td75.253 : float
+																		Float 6.283185
+																		IfLE x.166 Td75.253
+																			Let
+																				Td76.256 : float
+																				Float 3.141593
+																				IfLE Td76.256 x.166
+																					Let
+																						y.268 : float
+																						Let
+																							Td77.280 : float
+																							Float 3.141593
+																							FSub x.166 Td77.280
+																						Let
+																							Td78.269 : float
+																							Float 1.570796
+																							IfLE Td78.269 y.268
+																								Let
+																									Td79.275 : float
+																									Float 2.356195
+																									IfLE Td79.275 y.268
+																										Let
+																											Td81.278 : float
+																											Let
+																												Td80.279 : float
+																												Float 3.141593
+																												FSub Td80.279 y.268
+																											App taylor_cos.161 Td81.278 
+																										Let
+																											Td83.276 : float
+																											Let
+																												Td82.277 : float
+																												Float 1.570796
+																												FSub y.268 Td82.277
+																											App taylor_sin.163 Td83.276 
+																								Let
+																									Td84.270 : float
+																									Float 0.785398
+																									IfLE Td84.270 y.268
+																										Let
+																											Td87.272 : float
+																											Let
+																												Td86.273 : float
+																												Let
+																													Td85.274 : float
+																													Float 1.570796
+																													FSub Td85.274 y.268
+																												App taylor_sin.163 Td86.273 
+																											FNeg Td87.272
+																										Let
+																											Td88.271 : float
+																											App taylor_cos.161 y.268 
+																											FNeg Td88.271
+																					Let
+																						Td89.257 : float
+																						Float 1.570796
+																						IfLE Td89.257 x.166
+																							Let
+																								Td90.261 : float
+																								Float 2.356195
+																								IfLE Td90.261 x.166
+																									Let
+																										Td93.265 : float
+																										Let
+																											Td92.266 : float
+																											Let
+																												Td91.267 : float
+																												Float 3.141593
+																												FSub Td91.267 x.166
+																											App taylor_cos.161 Td92.266 
+																										FNeg Td93.265
+																									Let
+																										Td96.262 : float
+																										Let
+																											Td95.263 : float
+																											Let
+																												Td94.264 : float
+																												Float 1.570796
+																												FSub x.166 Td94.264
+																											App taylor_sin.163 Td95.263 
+																										FNeg Td96.262
+																							Let
+																								Td97.258 : float
+																								Float 0.785398
+																								IfLE Td97.258 x.166
+																									Let
+																										Td99.259 : float
+																										Let
+																											Td98.260 : float
+																											Float 1.570796
+																											FSub Td98.260 x.166
+																										App taylor_sin.163 Td99.259 
+																									App taylor_cos.161 x.166 
+																			Let
+																				Td101.254 : float
+																				Let
+																					Td100.255 : float
+																					Float 6.283185
+																					FSub x.166 Td100.255
+																				App cos.165 Td101.254 
+																	Let
+																		Td102.252 : float
+																		FNeg x.166
+																		App cos.165 Td102.252 
+														LetRec
+															FunDef
+																sin.167 : (float -> float)
+																x.168 : float
+																Let
+																	Td44.220 : float
+																	Float 0.000000
+																	IfLE Td44.220 x.168
+																		Let
+																			Td45.223 : float
+																			Float 6.283185
+																			IfLE x.168 Td45.223
+																				Let
+																					Td46.226 : float
+																					Float 3.141593
+																					IfLE Td46.226 x.168
+																						Let
+																							y.236 : float
+																							Let
+																								Td47.250 : float
+																								Float 3.141593
+																								FSub x.168 Td47.250
+																							Let
+																								Td48.237 : float
+																								Float 1.570796
+																								IfLE Td48.237 y.236
+																									Let
+																										Td49.243 : float
+																										Float 2.356195
+																										IfLE Td49.243 y.236
+																											Let
+																												Td52.247 : float
+																												Let
+																													Td51.248 : float
+																													Let
+																														Td50.249 : float
+																														Float 3.141593
+																														FSub Td50.249 y.236
+																													App taylor_sin.163 Td51.248 
+																												FNeg Td52.247
+																											Let
+																												Td55.244 : float
+																												Let
+																													Td54.245 : float
+																													Let
+																														Td53.246 : float
+																														Float 1.570796
+																														FSub y.236 Td53.246
+																													App taylor_cos.161 Td54.245 
+																												FNeg Td55.244
+																									Let
+																										Td56.238 : float
+																										Float 0.785398
+																										IfLE Td56.238 y.236
+																											Let
+																												Td59.240 : float
+																												Let
+																													Td58.241 : float
+																													Let
+																														Td57.242 : float
+																														Float 1.570796
+																														FSub Td57.242 y.236
+																													App taylor_cos.161 Td58.241 
+																												FNeg Td59.240
+																											Let
+																												Td60.239 : float
+																												App taylor_sin.163 y.236 
+																												FNeg Td60.239
+																						Let
+																							Td61.227 : float
+																							Float 1.570796
+																							IfLE Td61.227 x.168
+																								Let
+																									Td62.231 : float
+																									Float 2.356195
+																									IfLE Td62.231 x.168
+																										Let
+																											Td64.234 : float
+																											Let
+																												Td63.235 : float
+																												Float 3.141593
+																												FSub Td63.235 x.168
+																											App taylor_sin.163 Td64.234 
+																										Let
+																											Td66.232 : float
+																											Let
+																												Td65.233 : float
+																												Float 1.570796
+																												FSub x.168 Td65.233
+																											App taylor_cos.161 Td66.232 
+																								Let
+																									Td67.228 : float
+																									Float 0.785398
+																									IfLE Td67.228 x.168
+																										Let
+																											Td69.229 : float
+																											Let
+																												Td68.230 : float
+																												Float 1.570796
+																												FSub Td68.230 x.168
+																											App taylor_cos.161 Td69.229 
+																										App taylor_sin.163 x.168 
+																				Let
+																					Td71.224 : float
+																					Let
+																						Td70.225 : float
+																						Float 6.283185
+																						FSub x.168 Td70.225
+																					App sin.167 Td71.224 
+																		Let
+																			Td73.221 : float
+																			Let
+																				Td72.222 : float
+																				FNeg x.168
+																				App sin.167 Td72.222 
+																			FNeg Td73.221
+															LetRec
+																FunDef
+																	taylor_atan.169 : (float -> float)
+																	x.170 : float
+																	Let
+																		x2.200 : float
+																		FMul x.170 x.170
+																		Let
+																			Td43.201 : float
+																			Let
+																				Td25.202 : float
+																				Float 1.000000
+																				Let
+																					Td42.203 : float
+																					Let
+																						Td41.204 : float
+																						Let
+																							Td26.205 : float
+																							Float 0.333333
+																							Let
+																								Td40.206 : float
+																								Let
+																									Td39.207 : float
+																									Let
+																										Td27.208 : float
+																										Float 0.200000
+																										Let
+																											Td38.209 : float
+																											Let
+																												Td37.210 : float
+																												Let
+																													Td28.211 : float
+																													Float 0.142857
+																													Let
+																														Td36.212 : float
+																														Let
+																															Td35.213 : float
+																															Let
+																																Td29.214 : float
+																																Float 0.111111
+																																Let
+																																	Td34.215 : float
+																																	Let
+																																		Td33.216 : float
+																																		Let
+																																			Td30.217 : float
+																																			Float 0.089764
+																																			Let
+																																				Td32.218 : float
+																																				Let
+																																					Td31.219 : float
+																																					Float 0.060035
+																																					FMul Td31.219 x2.200
+																																				FSub Td30.217 Td32.218
+																																		FMul x2.200 Td33.216
+																																	FSub Td29.214 Td34.215
+																															FMul x2.200 Td35.213
+																														FSub Td28.211 Td36.212
+																												FMul x2.200 Td37.210
+																											FSub Td27.208 Td38.209
+																									FMul x2.200 Td39.207
+																								FSub Td26.205 Td40.206
+																						FMul x2.200 Td41.204
+																					FSub Td25.202 Td42.203
+																			FMul x.170 Td43.201
+																LetRec
+																	FunDef
+																		atan.171 : (float -> float)
+																		x.172 : float
+																		Let
+																			Td10.184 : float
+																			Float 0.000000
+																			IfLE Td10.184 x.172
+																				Let
+																					Td11.187 : float
+																					Float 0.437500
+																					IfLE Td11.187 x.172
+																						Let
+																							Td12.188 : float
+																							Float 2.356195
+																							IfLE Td12.188 x.172
+																								Let
+																									Td13.196 : float
+																									Float 1.570796
+																									Let
+																										Td16.197 : float
+																										Let
+																											Td15.198 : float
+																											Let
+																												Td14.199 : float
+																												Float 1.000000
+																												FDiv Td14.199 x.172
+																											App taylor_atan.169 Td15.198 
+																										FSub Td13.196 Td16.197
+																								Let
+																									Td17.189 : float
+																									Float 0.785398
+																									Let
+																										Td23.190 : float
+																										Let
+																											Td22.191 : float
+																											Let
+																												Td19.192 : float
+																												Let
+																													Td18.195 : float
+																													Float 1.000000
+																													FSub x.172 Td18.195
+																												Let
+																													Td21.193 : float
+																													Let
+																														Td20.194 : float
+																														Float 1.000000
+																														FAdd x.172 Td20.194
+																													FDiv Td19.192 Td21.193
+																											App taylor_atan.169 Td22.191 
+																										FAdd Td17.189 Td23.190
+																						App taylor_atan.169 x.172 
+																				Let
+																					y.185 : float
+																					FNeg x.172
+																					Let
+																						Td24.186 : float
+																						App atan.171 y.185 
+																						FNeg Td24.186
+																	LetRec
+																		FunDef
+																			fib.173 : (int -> int)
+																			n.174 : int
+																			Let
+																				Ti3.177 : int
+																				Int 1
+																				IfLE n.174 Ti3.177
+																					Int 1
+																					Let
+																						Ti6.178 : int
+																						Let
+																							Ti5.182 : int
+																							Let
+																								Ti4.183 : int
+																								Int 1
+																								Sub n.174 Ti4.183
+																							App fib.173 Ti5.182 
+																						Let
+																							Ti9.179 : int
+																							Let
+																								Ti8.180 : int
+																								Let
+																									Ti7.181 : int
+																									Int 2
+																									Sub n.174 Ti7.181
+																								App fib.173 Ti8.180 
+																							Add Ti6.178 Ti9.179
+																		Let
+																			Ti2.175 : int
+																			Let
+																				Ti1.176 : int
+																				Int 10
+																				App fib.173 Ti1.176 
+																			ExtFunApp print_int Ti2.175 
 
 
 <****** iter ******>
 LetRec
 	FunDef
-		fib.10 : (int -> int)
-		n.11 : int
+		fib.173 : (int -> int)
+		n.174 : int
 		Let
-			Ti3.14 : int
+			Ti3.177 : int
 			Int 1
-			IfLE n.11 Ti3.14
+			IfLE n.174 Ti3.177
 				Int 1
 				Let
-					Ti4.20 : int
+					Ti4.183 : int
 					Int 1
 					Let
-						Ti5.19 : int
-						Sub n.11 Ti4.20
+						Ti5.182 : int
+						Sub n.174 Ti4.183
 						Let
-							Ti6.15 : int
-							App fib.10 Ti5.19 
+							Ti6.178 : int
+							App fib.173 Ti5.182 
 							Let
-								Ti7.18 : int
+								Ti7.181 : int
 								Int 2
 								Let
-									Ti8.17 : int
-									Sub n.11 Ti7.18
+									Ti8.180 : int
+									Sub n.174 Ti7.181
 									Let
-										Ti9.16 : int
-										App fib.10 Ti8.17 
-										Add Ti6.15 Ti9.16
+										Ti9.179 : int
+										App fib.173 Ti8.180 
+										Add Ti6.178 Ti9.179
 	Let
-		Ti1.13 : int
-		Int 9
+		Ti1.176 : int
+		Int 10
 		Let
-			Ti2.12 : int
-			App fib.10 Ti1.13 
-			ExtFunApp print_int Ti2.12 
+			Ti2.175 : int
+			App fib.173 Ti1.176 
+			ExtFunApp print_int Ti2.175 
 
 
 <****** Closure ******>
 Prog
 	FunDef
 		/* name */
-		Lfib.10 : (int -> int)
+		Lfib.173 : (int -> int)
 		/* args */
-		n.11 : int
+		n.174 : int
 		/* formal_fv */
 		/* body */
 		Let
-			Ti3.14 : int
+			Ti3.177 : int
 			Int 1
-			IfLE n.11 Ti3.14
+			IfLE n.174 Ti3.177
 				Int 1
 				Let
-					Ti4.20 : int
+					Ti4.183 : int
 					Int 1
 					Let
-						Ti5.19 : int
-						Sub n.11 Ti4.20
+						Ti5.182 : int
+						Sub n.174 Ti4.183
 						Let
-							Ti6.15 : int
-							AppDir Lfib.10 Ti5.19 
+							Ti6.178 : int
+							AppDir Lfib.173 Ti5.182 
 							Let
-								Ti7.18 : int
+								Ti7.181 : int
 								Int 2
 								Let
-									Ti8.17 : int
-									Sub n.11 Ti7.18
+									Ti8.180 : int
+									Sub n.174 Ti7.181
 									Let
-										Ti9.16 : int
-										AppDir Lfib.10 Ti8.17 
-										Add Ti6.15 Ti9.16
+										Ti9.179 : int
+										AppDir Lfib.173 Ti8.180 
+										Add Ti6.178 Ti9.179
 	Let
-		Ti1.13 : int
-		Int 9
+		Ti1.176 : int
+		Int 10
 		Let
-			Ti2.12 : int
-			AppDir Lfib.10 Ti1.13 
-			AppDir Lmin_caml_print_int Ti2.12 
+			Ti2.175 : int
+			AppDir Lfib.173 Ti1.176 
+			AppDir Lmin_caml_print_int Ti2.175 
 
 
 <****** Virtual ******>
 Prog
 	FunDef
-		Lfib.10
+		Lfib.173
 		/* args */
-		n.11
+		n.174
 		/* fargs */
 		Let
-			Ti3.14 : int
+			Ti3.177 : int
 			Set 1
 			Ans
-				IfLE n.11 (V Ti3.14)
+				IfLE n.174 (V Ti3.177)
 					Ans
 						Set 1
 					Let
-						Ti4.20 : int
+						Ti4.183 : int
 						Set 1
 						Let
-							Ti5.19 : int
-							Sub n.11 (V Ti4.20)
+							Ti5.182 : int
+							Sub n.174 (V Ti4.183)
 							Let
-								Ti6.15 : int
+								Ti6.178 : int
 								CallDir
-									Lfib.10
-									Ti5.19 
+									Lfib.173
+									Ti5.182 
 									
 								Let
-									Ti7.18 : int
+									Ti7.181 : int
 									Set 2
 									Let
-										Ti8.17 : int
-										Sub n.11 (V Ti7.18)
+										Ti8.180 : int
+										Sub n.174 (V Ti7.181)
 										Let
-											Ti9.16 : int
+											Ti9.179 : int
 											CallDir
-												Lfib.10
-												Ti8.17 
+												Lfib.173
+												Ti8.180 
 												
 											Ans
-												Add Ti6.15 (V Ti9.16)
+												Add Ti6.178 (V Ti9.179)
 		int
 	Let
-		Ti1.13 : int
-		Set 9
+		Ti1.176 : int
+		Set 10
 		Let
-			Ti2.12 : int
+			Ti2.175 : int
 			CallDir
-				Lfib.10
-				Ti1.13 
+				Lfib.173
+				Ti1.176 
 				
 			Ans
 				CallDir
 					Lmin_caml_print_int
-					Ti2.12 
+					Ti2.175 
 					
 
 
 <****** Simm ******>
 Prog
 	FunDef
-		Lfib.10
+		Lfib.173
 		/* args */
-		n.11
+		n.174
 		/* fargs */
 		Ans
-			IfLE n.11 (C 1)
+			IfLE n.174 (C 1)
 				Ans
 					Set 1
 				Let
-					Ti5.19 : int
-					Sub n.11 (C 1)
+					Ti5.182 : int
+					Sub n.174 (C 1)
 					Let
-						Ti6.15 : int
+						Ti6.178 : int
 						CallDir
-							Lfib.10
-							Ti5.19 
+							Lfib.173
+							Ti5.182 
 							
 						Let
-							Ti8.17 : int
-							Sub n.11 (C 2)
+							Ti8.180 : int
+							Sub n.174 (C 2)
 							Let
-								Ti9.16 : int
+								Ti9.179 : int
 								CallDir
-									Lfib.10
-									Ti8.17 
+									Lfib.173
+									Ti8.180 
 									
 								Ans
-									Add Ti6.15 (V Ti9.16)
+									Add Ti6.178 (V Ti9.179)
 		int
 	Let
-		Ti1.13 : int
-		Set 9
+		Ti1.176 : int
+		Set 10
 		Let
-			Ti2.12 : int
+			Ti2.175 : int
 			CallDir
-				Lfib.10
-				Ti1.13 
+				Lfib.173
+				Ti1.176 
 				
 			Ans
 				CallDir
 					Lmin_caml_print_int
-					Ti2.12 
+					Ti2.175 
 					
 
 
 <****** RegAlloc ******>
 Prog
 	FunDef
-		Lfib.10
+		Lfib.173
 		/* args */
 		$2
 		/* fargs */
@@ -330,42 +2342,42 @@ Prog
 					$3 : int
 					Sub $2 (C 1)
 					Let
-						Tu21 : unit
-						Save $2 n.11
+						Tu317 : unit
+						Save $2 n.174
 						Let
 							$2 : int
 							CallDir
-								Lfib.10
+								Lfib.173
 								$3 
 								
 							Let
 								$3 : int
-								Restore n.11
+								Restore n.174
 								Let
 									$3 : int
 									Sub $3 (C 2)
 									Let
-										Tu22 : unit
-										Save $2 Ti6.15
+										Tu318 : unit
+										Save $2 Ti6.178
 										Let
 											$2 : int
 											CallDir
-												Lfib.10
+												Lfib.173
 												$3 
 												
 											Let
 												$3 : int
-												Restore Ti6.15
+												Restore Ti6.178
 												Ans
 													Add $3 (V $2)
 		int
 	Let
 		$2 : int
-		Set 9
+		Set 10
 		Let
 			$2 : int
 			CallDir
-				Lfib.10
+				Lfib.173
 				$2 
 				
 			Ans

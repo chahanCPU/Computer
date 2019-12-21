@@ -3,13 +3,17 @@
 module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	(input wire clk,
 	input wire rstn,
+	input wire rxd,
 	input wire [1:0] is_sorf,//special or fpu 01=special, 10=fpu
 	input wire [5:0] instr,
 	input wire [31:0] s,
 	input wire [31:0] t,
 	input reg [31:0] imm,
 	input reg [4:0] h,
-	output logic [31:0] d);
+	input reg is_in,
+	input wire [3:0] latancy,
+	output logic [31:0] d,
+	output logic in_valid);
 
 	localparam OP_LW = 6'b100011;
 	localparam OP_SW = 6'b101011;
@@ -25,6 +29,7 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	localparam OP_BNE = 6'b000101;
 	localparam OP_J = 6'b000010;
 	localparam OP_JAL = 6'b000011;
+	localparam OP_IN = 6'b111110;
 	localparam OP_OUT = 6'b111111;
 
 	localparam OP_LUI_S = 6'b011111;
@@ -59,7 +64,24 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	localparam FPU_FTOI = 6'b001000;
 	localparam FPU_ITOF = 6'b001001;
 
-	logic [31:0] latancy;
+
+
+	wire [7:0] 			 rdata;
+    wire 			 rx_ready;
+    wire 			 ferr;
+
+	localparam BUFFER_SIZE = 14;
+	logic [31:0] buffer[(2**BUFFER_SIZE)-1:0];
+
+	logic [BUFFER_SIZE-1:0] bot;
+	logic [BUFFER_SIZE-1:0] top;
+
+	logic in_ready;
+
+
+    uart_rx #(CLK_PER_HALF_BIT) u2(rdata, rx_ready, ferr, rxd, clk, rstn);
+
+	assign in_valid = (is_sorf != 2'b00 || instr != OP_IN || in_ready == 1);
 
 	logic [31:0] fpu_add_out;
 	logic fpu_add_ovf;
@@ -77,13 +99,13 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	logic [31:0] fpu_ftoi_out;
 	logic [31:0] fpu_itof_out;
 
-	// fadd faddo (s, t, fpu_add_out, fpu_add_ovf);
-	// fsub fsubo (s, t, fpu_sub_out, fpu_sub_ovf);
+	fadd faddo (s, t, fpu_add_out, fpu_add_ovf);
+	fsub fsubo (s, t, fpu_sub_out, fpu_sub_ovf);
 	fmul fmulo (s, t, fpu_mul_out, fpu_mul_ovf);
-	// finv finvo (s, fpu_inv_out);
+	finv finvo (s, fpu_inv_out);
 	// fabs fabso (s, fpu_abs_out);
 	// fneg fnego (s, fpu_neg_out);
-	fsqrt fsqrto (s, fpu_sqrt_out);
+	fsqrt fsqrto (s, clk, rstn, fpu_sqrt_out);
 	feq feqo (s, t, fpu_eq_out);
 	flt flto (s, t, fpu_lt_out);
 	fle fleo (s, t, fpu_le_out);
@@ -93,9 +115,18 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 	always @(posedge clk) begin
 		if(~rstn) begin
 			d <= 0;
-			latancy <= 0;
+			bot <= 1;
+			top <= 0;
+			in_ready <= 0;
 		end
 		else begin
+			if(rx_ready) begin
+				buffer[top] <= {24'b0, rdata};
+				top <= top + 1;
+			end
+			if(is_in) begin
+				bot <= bot + 1;
+			end
 			if(is_sorf == 2'b1) begin
 				case(instr)
 					FUNC_ADD : begin
@@ -144,24 +175,18 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 				case (instr)
 					FPU_ADD : begin
 						if(latancy == 2) begin
-							latancy <= 0;
 							d <= fpu_add_out;
 						end
-						else latancy <= latancy + 1;
 					end
 					FPU_SUB : begin
 						if(latancy == 2) begin
-							latancy <= 0;
 							d <= fpu_sub_out;
 						end
-						else latancy <= latancy + 1;
 					end
 					FPU_MUL : begin
 						if(latancy == 2) begin
-							latancy <= 0;
 							d <= fpu_mul_out;
 						end
-						else latancy <= latancy + 1;
 					end
 					FPU_INV : begin
 						d <= fpu_inv_out;
@@ -169,16 +194,14 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 					// FPU_ABS : begin
 					// 	d <= fpu_abs_out;
 					// end
-					// FPU_NEG : begin
-					//  d <= fpu_neg_out;
-					// end
+					FPU_NEG : begin
+						d <= (s ^ 32'h80000000);
+					end
 			
 					FPU_SQRT : begin
-						if(latancy == 2) begin
-							latancy <= 0;
+						if(latancy == 4) begin
 							d <= fpu_sqrt_out;
 						end
-						else latancy <= latancy + 1;
 					end
 					FPU_EQ : begin
 						d <= fpu_eq_out;
@@ -211,7 +234,7 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 						d <= s | imm;
 					end
 					OP_XORI: begin
-						d <= s ^ imm;
+						d <= s ^ {16'b0, imm[15:0]};
 					end
 					OP_SLTI: begin
 						d <= $signed(s) < $signed(imm);
@@ -245,6 +268,16 @@ module ALU #( parameter CLK_PER_HALF_BIT = 434, parameter INST_SIZE = 10)
 					end
 					OP_JAL: begin
 						d <= s;
+					end
+					OP_IN: begin
+						if(in_ready == 0) begin
+							if(bot != top) begin
+								d <= buffer[bot];
+								in_ready <= 1;
+							end
+						end
+
+						else in_ready <= 0;
 					end
 					OP_OUT: begin
 						d <= s;

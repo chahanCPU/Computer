@@ -42,18 +42,23 @@ string hexc = "0123456789abcdef";
 
 int main(int argc, char *argv[]) {
 	debug(argv[1], argv[2]);
-	ifstream in(argv[1]);
-	ofstream out(argv[2]);
+	string name = argv[1];
+	ifstream in(name + ".s.binary");
+	ofstream out(name + ".coe");
 	char c;
 	int cnt = 0;
 	out << "memory_initialization_radix = 16 ;\n";
 	out << "memory_initialization_vector =\n";
+	string str;
 	while(in >> c) {
-		if(cnt >= 4) {
-			out << c;
-			if(cnt % 8 == 3) out << ",\n";
-		}
+		if(cnt >= 4) str += c;
 		cnt++;
+	}
+	rep(i, 0, sz(str) / 8) {
+		rep(j, 0, 8) {
+			out << str[i * 8 + j];
+		}
+		out << (i == sz(str) / 8 - 1 ? ';' : ',') << "\n";
 	}
 	return 0;
 }

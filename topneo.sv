@@ -10,8 +10,8 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 		     input wire  rstn,
 			 output wire [7:0] led);
 
-	localparam INST_SIZE = 10;
-	localparam BRAM_SIZE = 18;
+	localparam INST_SIZE = 15;
+	localparam BRAM_SIZE = 19;
 
 	localparam FETCH = 0;
 	localparam DECODE = 1;
@@ -45,6 +45,7 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	logic d_is_jr;
 	logic d_out;
 	logic d_stop;
+	logic d_is_in;
 	logic [4:0] d_regdst;
 
 	logic [5:0] de_instr;
@@ -66,13 +67,15 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	logic [4:0] de_regdst;
 
 	logic [31:0] e_d;
-	logic [INST_SIZE-1:0] e_bpc;
+	logic [31:0] e_bpc;
+	logic e_in_valid;
 
 	logic [31:0] em_d;
-	logic [INST_SIZE-1:0] em_bpc;
+	logic em_wea;
+	logic [31:0] em_bpc;
 
 	logic [31:0] m_douta;
-	logic [INST_SIZE-1:0] m_npc;
+	logic [31:0] m_npc;
 
 	logic [31:0] mw_douta;
 
@@ -82,9 +85,11 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	logic [31:0] wd_regdstin;
 	logic [1:0] wd_regwritein;
 
+	logic wd_is_in;
+
 	logic [1:0] mode;
 	logic [7:0] pipe;
-	logic [INST_SIZE - 1 : 0] pc;
+	logic [31 : 0] pc;
 	logic [31:0] inst;
 	assign led = pc[7:0] | (mode << 4);
 
@@ -101,10 +106,10 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 	fetch #(CLK_PER_HALF_BIT, INST_SIZE) _fetch(rxd, clk, mode, pc, rstn, f_inst, load_done);
 	decode #(CLK_PER_HALF_BIT, INST_SIZE, BRAM_SIZE) _decode(clk, rstn, pc, fd_inst, wd_regwritein, wd_dtowrite, wd_regdstin, d_instr,
 							d_is_sorf, d_s, d_t, d_imm, d_h, d_branch, d_jump, 
-							d_rea, d_wea, d_memtoreg, d_regwrite, d_is_jal, d_is_jr, d_out, d_stop, d_regdst);
-	execute #(CLK_PER_HALF_BIT, INST_SIZE, BRAM_SIZE) _execute(clk, rstn, pc, de_instr, de_is_sorf, de_s, de_t, de_imm, de_h, de_branch, de_jump,
-							de_rea, de_wea, de_is_jal, de_is_jr, e_d, e_bpc);
-	memory #(CLK_PER_HALF_BIT, INST_SIZE, BRAM_SIZE) _memory(clk, rstn, pc, e_bpc, de_branch, de_jump, de_rea, de_wea, de_is_jal, de_is_jr,
+							d_rea, d_wea, d_memtoreg, d_regwrite, d_is_jal, d_is_jr, d_out, d_stop, d_regdst, d_is_in);
+	execute #(CLK_PER_HALF_BIT, INST_SIZE, BRAM_SIZE) _execute(clk, rstn, rxd, pc, de_instr, de_is_sorf, de_s, de_t, de_imm, de_h, de_branch, de_jump,
+							de_rea, de_wea, de_is_jal, de_is_jr, wd_is_in, latancy, e_d, e_bpc, e_in_valid);
+	memory #(CLK_PER_HALF_BIT, INST_SIZE, BRAM_SIZE) _memory(clk, rstn, pc, e_bpc, de_branch, de_jump, de_rea, em_wea, de_is_jal, de_is_jr,
 							de_t, e_d, m_douta, m_npc);
 	writereg #(CLK_PER_HALF_BIT, INST_SIZE, BRAM_SIZE) _writereg(clk, rstn, wd_out, de_memtoreg, mw_douta, em_d, de_regdst, txd, w_dtowrite);
 
@@ -165,19 +170,23 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 				else latancy <= latancy + 1;
 			end
 			else if(pipe == EXECUTE) begin
-				if(latancy == 3) begin
-					em_d <= e_d;
-					em_bpc <= e_bpc;
+				if(latancy == 5) begin
+					if(e_in_valid) begin
+						em_d <= e_d;
+						em_wea <= de_wea;
+						em_bpc <= e_bpc;
 
 
-					latancy <= 0;
-					pipe <= MEMORY;
+						latancy <= 0;
+						pipe <= MEMORY;
+					end
 				end
 				else latancy <= latancy + 1;
 			end
 			else if(pipe == MEMORY) begin
-				if(latancy == 0) begin
+				if(latancy == 1) begin
 					mw_douta <= m_douta;
+					em_wea <= 0;
 					pc <= m_npc;
 
 					latancy <= 0;
@@ -188,6 +197,7 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 			else if(pipe == WRITEREG) begin
 				if(latancy == 0) begin
 					wd_out <= de_out;
+					wd_is_in <= d_is_in;
 					wd_dtowrite <= w_dtowrite;
 					wd_regwritein <= de_regwrite;
 					wd_regdstin <= de_regdst;
@@ -196,6 +206,7 @@ module top #( parameter CLK_PER_HALF_BIT = 434)
 				else if (latancy == 1) begin
 					wd_regwritein <= 2'b0;
 					wd_out <= 0;
+					wd_is_in <= 0;
 					latancy <= 0;
 					if(de_stop) pipe <= STOP;
 					else pipe <= FETCH;
