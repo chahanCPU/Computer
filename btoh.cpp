@@ -41,7 +41,7 @@ mt19937 rng; //use it by rng() % mod, shuffle(all(vec), rng)
 string hexc = "0123456789abcdef";
 
 int main(int argc, char *argv[]) {
-	debug(argv[1], argv[2]);
+	debug(argv[1]);
 	string name = argv[1];
 	ifstream in(name + ".s.binary");
 	ofstream out(name + ".coe");

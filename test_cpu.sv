@@ -46,28 +46,61 @@ module test_cpu
 
    parameter TMDELAY = TMBIT*(1+8+1);
    
-   task genclk();
-      begin
-	 forever begin
-	    #HALF_TMCLK;
-	    clk = 1;
-	    #HALF_TMCLK;
-	    clk = 0;
-	 end
-      end
+   
+
+   task output_ok();
+   begin
+	   if (rx_ready) begin
+		    if (is_eof == 0) begin
+				if (filechar != rxchar) begin
+					$display("%d: Not the same!!! ans:%h, real:%h", outcount, filechar, rxchar);
+				end
+				else begin
+					$display("%d: Correct!!! ans:%h, real:%h", outcount, filechar, rxchar);
+				end
+
+				ok = $fscanf(gd, "%c", nexchar);
+
+				if(ok != 1) begin
+					$display("END OF ANSWER!!");
+					is_eof <= 1;
+				end
+				outcount <= outcount + 1;
+				filechar <= nexchar;
+			end 
+			else begin
+				$display("TOO MANY OUTPUT!! real:%h", rxchar);
+			end
+	   end
+   end
+
    endtask
+
+	task genclk();
+		  begin
+		 forever begin
+			 output_ok();
+			#HALF_TMCLK;
+			clk = 1;
+			#HALF_TMCLK;
+			clk = 0;
+		 end
+		  end
+	   endtask
+
 
    top #(CLK_PER_HALF_BIT) u1(pin_send,pin_recv,clk,rstn);
    uart_rx #(CLK_PER_HALF_BIT) rxut(rxchar, rx_ready, ferr, pin_recv, clk, rstn);
 
    initial begin
 	   // fd=$fopen("/home/omochan/3A/cpujikken/core/code/sandbox/sandbox.s.bintext","r");
-	   sld=$fopen("/home/omochan/3A/cpujikken/core/code/minrt/ball.sld.in","r");
-	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/minrt/minrt.s.ppm","r");
+	   sld=$fopen("/home/omochan/3A/cpujikken/core/code/sqrt/in.sld","r");
+	   gd=$fopen("/home/omochan/3A/cpujikken/core/code/sqrt/sqrt.s.ppm","r");
       $dumpfile("test_cpu.vcd");
       $dumpvars(0);
 
       #1;
+
 
       rstn <= 0;
       clk <= 0;
@@ -79,6 +112,7 @@ module test_cpu
       
       fork
 	 genclk();
+	 // output_ok();
       join_none
 
       #HALF_TMCLK;
@@ -89,35 +123,6 @@ module test_cpu
 
       #TMINTVL;
 	  
-	//   begin:FILE_LOOP
-	// 	forever begin
-	// 		if($feof(fd) != 0) begin
-	// 		  $display("FILE End !!");
-	// 		  disable FILE_LOOP;
-	// 		end
-	// 		else begin
-	// 			ok = $fscanf(fd, "%b", txchar);
-	// 			if(ok != 1) begin
-	// 				$display("CODE FILE END !!");
-	// 				disable FILE_LOOP;
-	// 			end
-	// 			pin_send = 0; // start bit
-	// 			 start_bit = 1;
-	//			
-	// 			 #TMBIT;
-	// 			 start_bit = 0;
-	// 			 for (j=0; j<8; j++) begin
-	// 				pin_send = txchar[j];
-	// 				#TMBIT;
-	// 			 end
-	// 			 pin_send = 1; // stop bit
-	// 			 stop_bit = 1;
-	// 			 #TMBIT;
-	// 			 stop_bit = 0;
-	// 			 #TMINTVL;
-	// 	 end
-	// 	end
-	// end
 	
 	txchar <= 8'b10101010;
 
@@ -172,61 +177,10 @@ module test_cpu
 	// $fclose(fd);
 	$fclose(sld);
 
-	$fscanf(gd, "%c", filechar);
-
-	$display("omo");
-
-	for(i = 0; i < 1000000000; i++) begin
-	   if (rx_ready) begin
-		    if (is_eof == 0) begin
-				if (filechar != rxchar) begin
-					$display("%d: Not the same!!! ans:%h, real:%h", outcount, filechar, rxchar);
-				end
-				else begin
-					$display("%d: Correct!!! ans:%h, real:%h", outcount, filechar, rxchar);
-				end
-
-				ok = $fscanf(gd, "%c", nexchar);
-
-				if(ok != 1) begin
-					$display("END OF ANSWER!!");
-					is_eof <= 1;
-				end
-				outcount <= outcount + 1;
-				filechar <= nexchar;
-			end 
-			else begin
-				$display("TOO MANY OUTPUT!! real:%h", rxchar);
-			end
-			
-			
-	   end
-	  #HALF_TMCLK;
-	  #HALF_TMCLK;
-	end
+	#100000000000;
 
    $fclose(gd);
 	
-
-
-  //     for (i=0; i<send_data.len(); i++) begin
-	 // txchar = send_data[i];
-	 // pin_send = 0; // start bit
-	 // start_bit = 1;
-	 //
-	 // #TMBIT;
-	 // start_bit = 0;
-	 // for (j=0; j<8; j++) begin
-	 //    pin_send = txchar[j];
-	 //    #TMBIT;
-	 // end
-	 // pin_send = 1; // stop bit
-	 // stop_bit = 1;
-	 // #TMBIT;
-	 // stop_bit = 0;
-	 // #TMINTVL;
-  //     end // for (i=0; i<send_data.len(); i++)
-	  
 
       $finish;
    end // initial begin

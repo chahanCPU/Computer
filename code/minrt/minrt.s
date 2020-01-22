@@ -11791,7 +11791,7 @@ print_int_label1:
 	slti	$at, $3, 1
 	blez	$at, print_int_label1
 print_int_label2:
-	!ori	$5, $zero, 10
+	ori	$5, $zero, 10
 	div	$4, $4, $5		# divu?
 	div	$3, $2, $4		# divu?
 	addi	$5, $3, 48
